@@ -38,6 +38,7 @@ import patches.tunicFairy
 import patches.seashell
 import patches.instrument
 import patches.endscreen
+import patches.mbc1
 import hints
 
 
@@ -211,4 +212,5 @@ def generateRom(options, seed, logic, multiworld=None):
     patches.titleScreen.setRomInfo(rom, binascii.hexlify(seed).decode("ascii").upper(), options)
     patches.endscreen.updateEndScreen(rom)
     patches.aesthetics.updateSpriteData(rom)
+    patches.mbc1.useMBC1(rom)
     return rom
