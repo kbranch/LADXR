@@ -77,6 +77,8 @@ class Logic:
             world.nightmare.connect(world.egg, COUNT(SEASHELL, 20))
         elif world_setup.goal in ("raft", "bingo", "bingo-full"):
             world.nightmare.connect(world.egg, egg_trigger)
+        elif isinstance(world_setup.goal, str) and world_setup.goal.startswith("="):
+            world.nightmare.connect(world.egg, AND(egg_trigger, *["INSTRUMENT%s" % c for c in world_setup.goal[1:]]))
         else:
             goal = int(world_setup.goal)
             if goal < 0:
@@ -157,7 +159,7 @@ class MultiworldLogic:
                     world_setup = WorldSetup()
                     world_setup.randomize(options, rnd)
                     world = Logic(options, world_setup=world_setup)
-                    if options.entranceshuffle not in ("advanced", "expert", "insanity") or len(world.iteminfo_list) == sum(itempool.ItemPool(options, rnd).toDict().values()):
+                    if options.entranceshuffle not in ("split", "mixed") or len(world.iteminfo_list) == sum(itempool.ItemPool(options, rnd).toDict().values()):
                         break
 
             for ii in world.iteminfo_list:
