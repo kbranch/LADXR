@@ -20,30 +20,27 @@ class Location:
             self.items.append(ii)
         return self
 
-    def connect(self, others, req=False, *, enter=False, exit=False, one_way=False):
-        assert one_way == False or enter == exit == False, "one_way is for backwards compatibility and should not be used with enter/exit"
-
-        # Backwards compatibility for now
-        if one_way:
-            enter = req
-            req = False
-
-        assert req == False or (enter == exit == False), "Specify either req or enter/exit, not both"
+    def connect(self, others, req="UNSET", *, back="UNSET", one_way=False):
+        assert one_way == False or back == "UNSET", "one_way is for backwards compatibility and should not be used with back"
 
         if not isinstance(others, Iterable):
             others = [others]
         
-        # Assume there's no requirement if nothing is specified
-        if req == enter == exit == False:
+        if req == back == "UNSET":
+            # Assume there's no requirement if nothing is specified
             req = None
+        elif back == "UNSET":
+            # It's a two-way
+            back = req
         
-        if req != False:
-            enter = req
-            exit = req
+        if req == "UNSET":
+            req = False
 
         for other in others:
-            self.singleConnect(other, enter)
-            other.singleConnect(self, exit)
+            self.singleConnect(other, req)
+
+            if not one_way:
+                other.singleConnect(self, back)
 
         return self
     

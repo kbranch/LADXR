@@ -75,7 +75,7 @@ class Dungeon2:
         vacuum_room.connect(northwest_switch_room, POWER_BRACELET) # Vacuum Mouth Area <--> Left of North Trapped Switch
         northwest_switch_room.connect(northeast_switch_room, r.hit_switch) # Left of North Trapped Switch <--> Right of North Trapped Switch
         northeast_switch_room.connect(northeast_switch_room_chest9) # Right of North Trapped Switch <--> Second Switch Locked Chest
-        northeast_switch_room.connect(after_b_passage, enter=r.hit_switch) # Right of North Trapped Switch <--> Enemy Order Room
+        northeast_switch_room.connect(after_b_passage, r.hit_switch, back=False) # Right of North Trapped Switch <--> Enemy Order Room
         after_b_passage.connect(pot_pol_room_doorway, FOUND(KEY2, 5)) # Enemy Order Room <--> Pots & Pols Room Doorway
         pot_pol_room_doorway.connect(pot_pol_room, POWER_BRACELET) # Pots & Pols Room Doorway <--> Pots & Pols Room
         pot_pol_room.connect(before_c_passage, AND(OR(POWER_BRACELET, r.enemy_requirements["POLS_VOICE"]), r.enemy_requirements["ZOL"])) # Pots & Pols Room --> Boss Passageway Spawn #TODO: enemy randomizer would make this pot kill requirement inaccurate. Also, technically you can kill zols with pots too, given 20 available, consider for normal logic
