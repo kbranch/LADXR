@@ -40,11 +40,11 @@ class DungeonColor:
         entrance.connect(main_room, AND(r.enemy_requirements["COLOR_GHOUL_GREEN"], r.enemy_requirements["COLOR_GHOUL_RED"])) # Entrance <--> Main Area
         main_room.connect(main_room_chest1, OR(r.hit_switch, SHIELD)) # Main Area <--> Entrance Chest
         main_room.connect(main_room_chest2, AND(POWER_BRACELET, r.attack_hookshot)) # Main Area <--> Two Socket Chest
-        main_room.connect(camo_pit_room, None, one_way=True) # Main Area --> Camo Pit Room
-        camo_pit_room.connect(main_room, AND(r.enemy_requirements["COLOR_GHOUL_GREEN"], r.enemy_requirements["COLOR_GHOUL_RED"]), one_way=True) # Camo Pit Room --> Main Area
-        camo_pit_room.connect(bone_putter_room, AND(r.enemy_requirements["COLOR_GHOUL_GREEN"], r.enemy_requirements["COLOR_GHOUL_RED"]), one_way=True) # Camo Pit Room --> Bone Putter Room
+        main_room.connect(camo_pit_room, None, back=False) # Main Area --> Camo Pit Room
+        camo_pit_room.connect(main_room, AND(r.enemy_requirements["COLOR_GHOUL_GREEN"], r.enemy_requirements["COLOR_GHOUL_RED"]), back=False) # Camo Pit Room --> Main Area
+        camo_pit_room.connect(bone_putter_room, AND(r.enemy_requirements["COLOR_GHOUL_GREEN"], r.enemy_requirements["COLOR_GHOUL_RED"]), back=False) # Camo Pit Room --> Bone Putter Room
         bone_putter_room.connect(bone_putter_room_chest3, None) # Bone Putter Room <--> Lower Small Key
-        bone_putter_room.connect(main_room, None, one_way=True) # Bone Putter Room <--> Main Area
+        bone_putter_room.connect(main_room, None, back=False) # Bone Putter Room <--> Main Area
         main_room.connect(main_room_drop1, OR(r.hit_switch, SHIELD)) # Main Area <--> Upper Small Key
         main_room.connect(rupee_room, BOMB) # Main Area <--> Secret Rupee Room
         main_room.connect(miniboss1_room, FOUND(KEY0, 3)) # Main Area <--> Miniboss 1

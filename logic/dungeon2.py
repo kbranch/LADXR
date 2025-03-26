@@ -79,7 +79,7 @@ class Dungeon2:
         after_b_passage.connect(pot_pol_room_doorway, FOUND(KEY2, 5)) # Enemy Order Room <--> Pots & Pols Room Doorway
         pot_pol_room_doorway.connect(pot_pol_room, POWER_BRACELET) # Pots & Pols Room Doorway <--> Pots & Pols Room
         pot_pol_room.connect(before_c_passage, AND(OR(POWER_BRACELET, r.enemy_requirements["POLS_VOICE"]), r.enemy_requirements["ZOL"])) # Pots & Pols Room --> Boss Passageway Spawn #TODO: enemy randomizer would make this pot kill requirement inaccurate. Also, technically you can kill zols with pots too, given 20 available, consider for normal logic
-        #TODO: before_c_passage.connect(pot_pol_room, None, one_way=True) # Boss Passageway Spawn --> Pots & Pols Room [logic prep for staircase rando]
+        #TODO: before_c_passage.connect(pot_pol_room, None, back=False) # Boss Passageway Spawn --> Pots & Pols Room [logic prep for staircase rando]
         before_c_passage.connect(pre_boss_room, POWER_BRACELET) # Boss Passageway <--> Room Before Boss
         pre_boss_room.connect(pre_boss, FEATHER) # Room Before Boss <--> Outside Boss Door
         pre_boss.connect(boss_room, NIGHTMARE_KEY2) # Outside Boss Door <--> Boss Room
@@ -93,19 +93,19 @@ class Dungeon2:
             east_torches.connect(east_torches_drop2, OR(r.rear_attack, AND(FEATHER, r.enemy_requirements["MASKED_MIMIC_GORIYA"]))) # East of Torches <--> Mask Mimic Key
 
         if options.logic == 'hard' or options.logic == 'glitched' or options.logic == 'hell':
-            #outside_passage_b.connect(vacuum_room, POWER_BRACELET, one_way=True) # exit passage b stairs by lifting pot and also r.corner_walk if it were in requirements.py
+            #outside_passage_b.connect(vacuum_room, POWER_BRACELET, back=False) # exit passage b stairs by lifting pot and also r.corner_walk if it were in requirements.py
             #TODO: northwest_switch_room.connect(northeast_switch_room, r.tight_jump) # jump around the single peg blocking the switch [logic prep for stairs rando]
             after_b_passage.connect(northeast_switch_room, AND(r.hit_switch, r.tight_jump)) # 
 
         if options.logic == 'glitched' or options.logic == 'hell':
             boo_room.connect(boo_room_chest8, SWORD) # use sword to spawn ghosts on other side of the room so they run away (logically irrelevant because player will have fire)
-            after_miniboss.connect(before_b_passage, r.super_jump_feather, one_way=True) # superjump after hinox to access passage B
-            #TODO: vacuum_room.connect(northeast_switch_room, AND(POWER_BRACELET, r.super_jump_feather), one_way=True) # lift pots, wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
-            #TODO: vacuum_room.connect(northwest_switch_room, AND(POWER_BRACELET, r.super_jump_feather), one_way=True) # lift pots, wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
-            #TODO: after_b_passage.connect(northeast_switch_room, r.super_jump_feather, one_way=True) # wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
-            #TODO: after_b_passage.connect(northwest_switch_room, r.super_jump_feather, one_way=True) # wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
-            #TODO: after_b_passage.connect(vacuum_room, r.super_jump_feather, one_way=True) # starting from enemy order room, wall clip and walk all the way to switch room, superjump onto pegs, two diagonal jumps to leafe lower lefe wall clipped, then multiple superjumps to escape past pots [logic prep for stairs rando]
-            #TODO: before_c_passage.connect(pot_pol_room, AND(r.hookshot_clip, r.super_jump_feather), one_way=True) # [logic prep for staircase rando] - hookshot top center pot while touching north wall several times until wall clipped, superjump over pots to key door [logic prep for stairs rando]
+            after_miniboss.connect(before_b_passage, r.super_jump_feather, back=False) # superjump after hinox to access passage B
+            #TODO: vacuum_room.connect(northeast_switch_room, AND(POWER_BRACELET, r.super_jump_feather), back=False) # lift pots, wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
+            #TODO: vacuum_room.connect(northwest_switch_room, AND(POWER_BRACELET, r.super_jump_feather), back=False) # lift pots, wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
+            #TODO: after_b_passage.connect(northeast_switch_room, r.super_jump_feather, back=False) # wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
+            #TODO: after_b_passage.connect(northwest_switch_room, r.super_jump_feather, back=False) # wall clip on bottom wall, and low superjump onto pegs. then you can jump to either side of the locked switch [logic prep for stairs rando]
+            #TODO: after_b_passage.connect(vacuum_room, r.super_jump_feather, back=False) # starting from enemy order room, wall clip and walk all the way to switch room, superjump onto pegs, two diagonal jumps to leafe lower lefe wall clipped, then multiple superjumps to escape past pots [logic prep for stairs rando]
+            #TODO: before_c_passage.connect(pot_pol_room, AND(r.hookshot_clip, r.super_jump_feather), back=False) # [logic prep for staircase rando] - hookshot top center pot while touching north wall several times until wall clipped, superjump over pots to key door [logic prep for stairs rando]
             
         if options.logic == 'hell':    
             pitbeetle_room.connect(pitbeetle_room_chest2, r.boots_bonk_pit) # use boots bonk on torch to jump over the pits
@@ -118,7 +118,7 @@ class Dungeon2:
             #TODO: after_miniboss.connect(vacuum_room, r.hookshot_spam_pit) # hookshot spam to cross single tile pits by owl statue [logic prep for stairs rando]
             #TODO: before_b_passage.connect(after_b_passage, r.boots_bonk_2d_hell) # boots bonk through pirahna passage either way [logic prep for stairs rando]
             #TODO: northwest_switch_room.connect(northeast_switch_room, r.pit_buffer_boots) # pit buffer onto one of the pots and boots bonk diagonally upwards go get to the other side of the peg [logic prep for stairs rando]
-            #TODO: northeast_switch_room.connect(after_b_passage, None, one_way=True) # pit buffer on pits below chest to get on pegs and leave from lower right exit [logic prep for stairs rando]
+            #TODO: northeast_switch_room.connect(after_b_passage, None, back=False) # pit buffer on pits below chest to get on pegs and leave from lower right exit [logic prep for stairs rando]
             pot_pol_room_doorway.connect(before_c_passage, AND(r.hookshot_clip_block, r.enemy_requirements["ZOL"], r.enemy_requirements["POLS_VOICE"])) # hookshot clip through the pot using both pol's voice 
             before_c_passage.connect(pre_boss_room, OR(BOMB, r.boots_jump)) # use a bomb to lower the last platform, or boots + feather to cross over top (only relevant in hell logic)
             pre_boss_room.connect(pre_boss, AND(r.boots_bonk_pit, r.hookshot_spam_pit)) # TODO: enclose in OR statement to allow boots only method

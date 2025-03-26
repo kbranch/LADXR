@@ -78,37 +78,37 @@ class Dungeon5:
         messy_room.connect(messy_room_chest3, r.enemy_requirements["IRON_MASK"]) # Messy Room <--> Flying Bomb Chest South
         crystal_puddle_room.connect(statue_room, r.enemy_requirements["IRON_MASK"]) # After First Key <--> Fireball Statue Room
         statue_room.connect(after_blade_trap, HOOKSHOT) # Fireball Statue Room <--> After Blade Trap
-        after_blade_trap.connect(pot_column_room, HOOKSHOT, one_way=True) # After Blade Trap --> Pot Column Room
+        after_blade_trap.connect(pot_column_room, HOOKSHOT, back=False) # After Blade Trap --> Pot Column Room
         pot_column_room.connect(pot_column_room_chest4, None) # Pot Column Room <--> Three Iron Mask Chest
-        pot_column_room.connect(after_blade_trap, None, one_way=True) # Pot Column Room --> After Blade Trap
+        pot_column_room.connect(after_blade_trap, None, back=False) # Pot Column Room --> After Blade Trap
         statue_room.connect(before_miniboss, HOOKSHOT) # Fireball Statue Room <--> Before Miniboss
         before_miniboss.connect(miniboss_room, FOUND(KEY5, 2)) # Before Miniboss <--> Miniboss Room
         miniboss_room.connect(before_c_passage, r.miniboss_requirements[world_setup.miniboss_mapping[4]]) # Miniboss Room <--> After Miniboss
         before_c_passage.connect(after_c_passage, AND(HOOKSHOT, FEATHER)) # After Miniboss <--> Before Boss Keyblock
         after_c_passage.connect(after_boss_keyblock, FOUND(KEY5, 3)) # Before Boss Keyblock <--> After Boss Keyblock
-        crystal_puddle_room.connect(ms_1_room, AND(r.enemy_requirements["STALFOS_AGGRESSIVE"], r.enemy_requirements["STALFOS_EVASIVE"]), one_way=True) # Crystal River Area --> Master Stalfos Fight 1
-        ms_1_room.connect(crystal_puddle_room, r.enemy_requirements["MASTER_STALFOS"], one_way=True) # Master Stalfos Fight 1 --> Crystal River Area
-        ms_1_room.connect(before_d_passage, r.enemy_requirements["MASTER_STALFOS"], one_way=True) # Master Stalfos Fight 1 --> South of Crossroads
+        crystal_puddle_room.connect(ms_1_room, AND(r.enemy_requirements["STALFOS_AGGRESSIVE"], r.enemy_requirements["STALFOS_EVASIVE"]), back=False) # Crystal River Area --> Master Stalfos Fight 1
+        ms_1_room.connect(crystal_puddle_room, r.enemy_requirements["MASTER_STALFOS"], back=False) # Master Stalfos Fight 1 --> Crystal River Area
+        ms_1_room.connect(before_d_passage, r.enemy_requirements["MASTER_STALFOS"], back=False) # Master Stalfos Fight 1 --> South of Crossroads
         ms_1_room.connect(ms_1_victory, r.enemy_requirements["MASTER_STALFOS"]) # Master Stalfos Fight 1 Victory
-        before_d_passage.connect(ms_1_room, None, one_way=True) # South of Crossroads --> Master Stalfos Fight 1
+        before_d_passage.connect(ms_1_room, None, back=False) # South of Crossroads --> Master Stalfos Fight 1
         before_d_passage.connect(before_d_passage_chest5, None) # South of Crossroads <--> Hookshot Note Chest
         before_d_passage.connect(after_d_passage, FEATHER) # South of Crossroads <--> Fireball Torches Room
-        after_d_passage.connect(star_room, None, one_way=True) # Fireball Torches Room --> Star Owl Room
-        star_room.connect(after_d_passage, r.enemy_requirements["STAR"], one_way=True) # Star Owl Room --> Fireball Torches Room
-        star_room.connect(spark_hallway, r.enemy_requirements["STAR"], one_way=True) # Star Owl Room --> Spark Hallway
-        spark_hallway.connect(after_c_passage, None, one_way=True) # Spark Hallway --> Before Boss Keyblock
-        spark_hallway.connect(star_room, None, one_way=True) # Spark Hallway --> Star Owl Room
+        after_d_passage.connect(star_room, None, back=False) # Fireball Torches Room --> Star Owl Room
+        star_room.connect(after_d_passage, r.enemy_requirements["STAR"], back=False) # Star Owl Room --> Fireball Torches Room
+        star_room.connect(spark_hallway, r.enemy_requirements["STAR"], back=False) # Star Owl Room --> Spark Hallway
+        spark_hallway.connect(after_c_passage, None, back=False) # Spark Hallway --> Before Boss Keyblock
+        spark_hallway.connect(star_room, None, back=False) # Spark Hallway --> Star Owl Room
         before_d_passage.connect(ms_2_room, None) # South of Crossroads <--> Master Stalfos Fight 2
         before_d_passage.connect(north_crossroads, FEATHER) # South of Crossroads <--> North of Crossroads
-        north_crossroads.connect(single_tile_ledge, HOOKSHOT, one_way=True) # North of Crossroads <--> Single-Tile Ledge
+        north_crossroads.connect(single_tile_ledge, HOOKSHOT, back=False) # North of Crossroads <--> Single-Tile Ledge
         north_crossroads.connect(single_tile_ledge, FEATHER)
         single_tile_ledge.connect(middle_ledge, OR(HOOKSHOT, AND(FEATHER, PEGASUS_BOOTS))) # North of Crossroads <--> First Ledge Chest
-        single_tile_ledge.connect(middle_ledge, HOOKSHOT, one_way=True)
+        single_tile_ledge.connect(middle_ledge, HOOKSHOT, back=False)
         middle_ledge.connect(middle_ledge_chest6, None) # First Ledge <--> Two Stalfos, Star Pit Chest
         middle_ledge.connect(east_ledge, HOOKSHOT) # First Ledge <--> East Ledge
         ms_2_room.connect(ms_2_victory, AND(r.enemy_requirements["MASTER_STALFOS"])) # Master Stalfos Fight 2 Victory
         east_ledge.connect(east_ledge_chest8, None) # East Ledge <--> Flying Bomb Chest East
-        middle_ledge.connect(north_ledge, HOOKSHOT, one_way=True) # First Ledge <--> North Ledge
+        middle_ledge.connect(north_ledge, HOOKSHOT, back=False) # First Ledge <--> North Ledge
         north_ledge.connect(north_ledge_chest_7, None) # North Ledge <--> Sword Stalfos, Star, Bridge Chest
         north_ledge.connect(north_crossroads, HOOKSHOT) # North of Crossroads <--> North Ledge
         north_crossroads.connect(ms_3_room, r.enemy_requirements["HIDING_ZOL"]) # North of Crossroads <--> Master Stalfos Fight 3 #TODO: REMOVE and replace with below
@@ -133,7 +133,7 @@ class Dungeon5:
             after_blade_trap.connect(pot_column_room, r.tight_jump) # tight jump south to get across huge pit
             before_d_passage.connect(after_d_passage, r.boots_bonk) # boots charge + bonk to cross 2d bridge [move to hell?]
             before_c_passage.connect(after_c_passage, AND(r.boots_bonk, HOOKSHOT)) # boots bonk in 2d section to skip feather [move to hell?]
-            after_c_passage.connect(before_c_passage, r.boots_bonk, one_way=True) # don't need hookshot in reverse [move to hell?]
+            after_c_passage.connect(before_c_passage, r.boots_bonk, back=False) # don't need hookshot in reverse [move to hell?]
             spark_hallway.connect(after_boss_keyblock, r.tight_jump) # jump from bottom left to top right, skipping the keyblock
             spark_hallway.connect(pre_boss_room, r.boots_jump) # cross pits room from bottom left to top left with boots jump
             before_d_passage.connect(single_tile_ledge, r.hookshot_over_pit) # walk into pit and hookshot right to get to single tile ledge
@@ -154,7 +154,7 @@ class Dungeon5:
             entrance.connect(entrance_ledge, r.pit_buffer_boots) # use pit buffer to clip into the bottom wall and boots bonk off the wall again
             before_a_passage.connect(after_a_passage, r.boots_bonk_2d_hell) # do an incredibly hard boots bonk setup to get across the hanging platforms in the 2d section
             statue_room.connect(after_blade_trap, r.pit_buffer_boots) # boots bonk + pit buffer past the blade traps
-            after_blade_trap.connect(pot_column_room, r.pit_buffer_itemless, one_way=True)
+            after_blade_trap.connect(pot_column_room, r.pit_buffer_itemless, back=False)
             statue_room.connect(before_miniboss, AND(r.boots_jump, r.pit_buffer)) # use boots jump in room with 2 zols + flying arrows to pit buffer above pot, then jump across. #TODO: change to pit_buffer_boots
             #TODO: statue_room.connect(before_miniboss, r.super_bump) # super bump off zol or fireball to skip bridge pull NOTE: not sure if oob
             before_miniboss.connect(before_c_passage, AND(r.sideways_block_push, POWER_BRACELET)) # Sideways block push + pick up pots to reach post_gohma #TODO: move to glitched
@@ -164,12 +164,12 @@ class Dungeon5:
             #TODO: before_d_passage.connect(after_d_passage, None) # hold the A button when itemless to bounce higher off the cheep-cheeps to cover 2-block gaps. helpful to stand on edge and pause/map buffer to catch the frame where fish starts to leap, then hold left
             #TODO: before_d_passage.connect(north_crossroads, r.boots_bonk_pit) # boots bonk over pit
             north_crossroads.connect(north_ledge, r.pit_buffer_boots) # get to first chest via the north chest with pit buffering
-            north_ledge.connect(middle_ledge, r.pit_buffer_itemless, one_way=True) # itemless pit buffer down through where the bridge would be
+            north_ledge.connect(middle_ledge, r.pit_buffer_itemless, back=False) # itemless pit buffer down through where the bridge would be
             middle_ledge.connect(east_ledge, r.pit_buffer_boots) # boots bonk across the pits with pit buffering
             #TODO: ms_3_room.connect(pot_locked_room, AND(r.super_jump_boots, r.zoomerang_buffer)) # skip bracelet requirement by boots superjump to land in pot, then zoomerang to dislodge link to the left
             after_b_passage.connect(boss_key_room, r.pit_buffer_itemless) # pit buffer across
             if options.owlstatues == "both" or options.owlstatues == "dungeon": #TODO: remove if statement
-                after_boss_keyblock.connect(spark_hallway, AND(STONE_BEAK5, r.pit_buffer_itemless), one_way=True) #TODO: remove beak from requirement -  pit buffer from top right to bottom in right pits room
+                after_boss_keyblock.connect(spark_hallway, AND(STONE_BEAK5, r.pit_buffer_itemless), back=False) #TODO: remove beak from requirement -  pit buffer from top right to bottom in right pits room
             spark_hallway.connect(pre_boss_room, r.super_jump_sword) # cross pits room from bottom left to top left by superjump from bottom wall to land on outcropping, then jump across
 
         self.entrance = entrance

@@ -60,11 +60,11 @@ class Dungeon4:
         entrance.connect(east_crossroads, AND(FEATHER, PEGASUS_BOOTS)) # Entrance <--> East of Crossroads
         east_crossroads.connect(east_crossroads_chest5, BOMB) # East of Crossroads <--> Lower Bomb Locked Watery Chest
         east_crossroads.connect(east_crossroads_chest6, OR(BOMB, FLIPPERS)) # East of Crossroads <--> Upper Bomb Locked Watery Chest
-        east_of_entrance.connect(west_statue_room, FOUND(KEY4, 1), one_way=True) # East of Entrance <--> Statue Room West Door
-        west_statue_room.connect(east_of_entrance, FOUND(KEY4, 5), one_way=True) # Statue Room West Door <--> East of Entrance
+        east_of_entrance.connect(west_statue_room, FOUND(KEY4, 1), back=False) # East of Entrance <--> Statue Room West Door
+        west_statue_room.connect(east_of_entrance, FOUND(KEY4, 5), back=False) # Statue Room West Door <--> East of Entrance
         west_statue_room.connect(north_statue_room, OR(FEATHER, FLIPPERS)) # Statue Room West Door <--> Statue Room North Door
-        south_crossroads.connect(north_statue_room, FOUND(KEY4, 4), one_way=True) # South of Crossroads <--> Statue Room North Door
-        north_statue_room.connect(south_crossroads, FOUND(KEY4, 2), one_way=True) # Statue Room North Door <--> South of Crossroads
+        south_crossroads.connect(north_statue_room, FOUND(KEY4, 4), back=False) # South of Crossroads <--> Statue Room North Door
+        north_statue_room.connect(south_crossroads, FOUND(KEY4, 2), back=False) # Statue Room North Door <--> South of Crossroads
         south_crossroads.connect(south_crossroads_chest7, FLIPPERS) # South of Crossroads <--> Peahat's Chest <--> South of Crossroads
         south_crossroads.connect(north_crossroads, AND(FEATHER, PEGASUS_BOOTS)) # South of Crossroads <--> North of Crossroads
         north_crossroads.connect(before_miniboss, FOUND(KEY4, 3)) # North of Crossroads <--> Before Miniboss
@@ -76,18 +76,18 @@ class Dungeon4:
         before_miniboss.connect(north_tile_puzzle, FLIPPERS) # Before Miniboss <--> Upper Tile Puzzle
         before_miniboss.connect(miniboss_room, FOUND(KEY4, 5)) # Before Miniboss <--> Miniboss Room - #TODO: change to one_way
         miniboss_room.connect(after_miniboss, r.miniboss_requirements[world_setup.miniboss_mapping[3]]) # Miniboss Room <--> After Miniboss #TODO: change to one_way
-        after_miniboss.connect(flippers_room, POWER_BRACELET, one_way=True) # After Miniboss <--> Flippers Room #TODO: DELETE and it's in casual logic statement
+        after_miniboss.connect(flippers_room, POWER_BRACELET, back=False) # After Miniboss <--> Flippers Room #TODO: DELETE and it's in casual logic statement
         flippers_room.connect(north_tile_puzzle, r.enemy_requirements["ZOL"]) # Flippers Room <--> Before Miniboss Room #TODO: change to one_way
-        north_tile_puzzle.connect(flippers_room, None, one_way=True) # Flippers Room <--> Before Miniboss Room
-        #TODO: flippers_room.connect(after_miniboss, r.enemy_requirements["ZOL"], one_way=True) # [logic prep for staircase rando]
-        #TODO: after_miniboss.connect(miniboss_room, POWER_BRACELET, one_way=True) # [logic prep for staircase rando] #TODO: DELETE and it's in casual logic statement
-        #TODO: miniboss_room.connect(before_miniboss, r.miniboss_requirements[world_setup.miniboss_mapping[3]], one_way=True) # [logic prep for staircase rando]
+        north_tile_puzzle.connect(flippers_room, None, back=False) # Flippers Room <--> Before Miniboss Room
+        #TODO: flippers_room.connect(after_miniboss, r.enemy_requirements["ZOL"], back=False) # [logic prep for staircase rando]
+        #TODO: after_miniboss.connect(miniboss_room, POWER_BRACELET, back=False) # [logic prep for staircase rando] #TODO: DELETE and it's in casual logic statement
+        #TODO: miniboss_room.connect(before_miniboss, r.miniboss_requirements[world_setup.miniboss_mapping[3]], back=False) # [logic prep for staircase rando]
         flippers_room.connect(flippers_room_chest11, None) # Flippers Room <--> Flippers Chest
-        north_tile_puzzle.connect(south_tile_puzzle, None, one_way=True)# Upper Tile Puzzle <--> Lower Tile Puzzle
-        south_tile_puzzle.connect(before_a_passage, OR(AND(FEATHER, PEGASUS_BOOTS), FLIPPERS), one_way=True) # Lower Tile Puzzle Area <--> Puzzle Stairs Spawn
-        before_a_passage.connect(after_a_passage, FEATHER, one_way=True) # Puzzle Stairs Spawn --> Boss Key Ledge
+        north_tile_puzzle.connect(south_tile_puzzle, None, back=False)# Upper Tile Puzzle <--> Lower Tile Puzzle
+        south_tile_puzzle.connect(before_a_passage, OR(AND(FEATHER, PEGASUS_BOOTS), FLIPPERS), back=False) # Lower Tile Puzzle Area <--> Puzzle Stairs Spawn
+        before_a_passage.connect(after_a_passage, FEATHER, back=False) # Puzzle Stairs Spawn --> Boss Key Ledge
         after_a_passage.connect(after_a_passage_chest12, None) # Boss Key Ledge <--> Nightmare Key Ledge Chest
-        after_a_passage.connect(south_tile_puzzle, None, one_way=True) # Boss Key Ledge <--> Lower Tile Puzzle Area
+        after_a_passage.connect(south_tile_puzzle, None, back=False) # Boss Key Ledge <--> Lower Tile Puzzle Area
         south_tile_puzzle.connect(outside_b_passage_keyblock, FLIPPERS) # Lower Tile Puzzle Area <--> Outside Boss Passageway Keyblock
         outside_b_passage_keyblock.connect(before_b_passage, FOUND(KEY4, 5)) # Outside Boss Passageway Keyblock <--> Before Boss Passageway
         before_miniboss.connect(outside_b_passage_shallows, OR(FLIPPERS, HOOKSHOT, AND(FEATHER, PEGASUS_BOOTS))) # Before Miniboss Room <--> Outside Boss Passageway Pushblock
@@ -98,13 +98,13 @@ class Dungeon4:
         boss_room.connect(instrument, r.boss_requirements[world_setup.boss_mapping[3]]) # Boss Room <--> Instrument Room
 
         #TODO: if options.logic == "casual":
-            #TODO: after_miniboss.connect(flippers_room, POWER_BRACELET, one_way=True) # intended method is to pull lever
-            #TODO: after_miniboss.connect(miniboss_room, POWER_BRACELET, one_way=True) # intended method is to pull lever
+            #TODO: after_miniboss.connect(flippers_room, POWER_BRACELET, back=False) # intended method is to pull lever
+            #TODO: after_miniboss.connect(miniboss_room, POWER_BRACELET, back=False) # intended method is to pull lever
             #TODO: before_b_passage.connect(after_b_passage, AND(r.attack_hookshot, FLIPPERS)) # intended method is to have a weapon here, but it's possible to get through without damage which goes in normal logic
 
         #TODO: else:
-            #TODO: after_miniboss.connect(flippers_room, None, one_way=True) # After Miniboss <--> Flippers Room
-            #TODO: after_miniboss.connect(miniboss_room, None, one_way=True) # After Miniboss <--> Miniboss Room
+            #TODO: after_miniboss.connect(flippers_room, None, back=False) # After Miniboss <--> Flippers Room
+            #TODO: after_miniboss.connect(miniboss_room, None, back=False) # After Miniboss <--> Miniboss Room
             #TODO: before_b_passage.connect(after_b_passage, FLIPPERS) # Before Boss Passageway <--> Before Boss Door
 
         if options.logic == 'hard' or options.logic == 'glitched' or options.logic == 'hell':
@@ -116,15 +116,15 @@ class Dungeon4:
             before_miniboss.connect(sidescroller_drop1, AND(r.throw_pot, FLIPPERS)) #TODO: replace with below
             #TODO: before_miniboss.connect(sidescroller_drop1, FLIPPERS) # let zols drown to spawn key
             before_miniboss.connect(before_miniboss_chest8, r.tight_jump) # With a tight jump feather is enough to cross the puddle without flippers
-            after_miniboss.connect(flippers_room, None, one_way=True) # walk directly without pulling lever
-            #TODO: after_miniboss.connect(miniboss_room, None, one_way=True) # [logic prep for auto-key logic] walk directly without pulling lever
+            after_miniboss.connect(flippers_room, None, back=False) # walk directly without pulling lever
+            #TODO: after_miniboss.connect(miniboss_room, None, back=False) # [logic prep for auto-key logic] walk directly without pulling lever
             south_tile_puzzle.connect(before_a_passage, r.tight_jump) # With a tight jump feather is enough to reach the top left switch without flippers, or use flippers for puzzle and boots to get through 2d section
             south_tile_puzzle.connect(after_b_passage, r.tight_jump) # jump from bottom right corner of boss door room
             
         if options.logic == 'glitched' or options.logic == 'hell':
-            #TODO: entrance.connect(west_statue_room, r.super_jump_feather, one_way=True) # [logic prep for auto-key logic]
+            #TODO: entrance.connect(west_statue_room, r.super_jump_feather, back=False) # [logic prep for auto-key logic]
             east_crossroads.connect(east_crossroads_chest5, AND(r.sideways_block_push, FLIPPERS)) # sideways block push to skip bombs
-            #TODO: before_miniboss.connect(north_crossroads, r.super_jump_feather, one_way=True) # [logic prep for staircase rando] - push block down and superjump to the right
+            #TODO: before_miniboss.connect(north_crossroads, r.super_jump_feather, back=False) # [logic prep for staircase rando] - push block down and superjump to the right
             before_miniboss.connect(sidescroller_drop1, AND(r.super_jump_feather, OR(r.enemy_requirements["ZOL"], r.throw_pot))) #TODO: replace with below
             #TODO: before_miniboss.connect(sidescroller_drop1, r.super_jump_feather) # let zols drown to spawn key, superjump into pit, and press left get item
             before_miniboss.connect(north_tile_puzzle, r.jesus_jump) # use jesus jump to transition over the water left of miniboss #TODO: more granular connection
@@ -135,27 +135,27 @@ class Dungeon4:
             #TODO: outside_b_passage_shallows.connect(before_b_passage, r.super_jump_feather) # [logic prep for staircase rando]
 
         if options.logic == 'hell':
-            #TODO: entrance.connect(after_a_passage, AND(r.wall_clip, r.super_bump), one_way=True) # wall clip and super bump off tektite to land on boss key ledge
+            #TODO: entrance.connect(after_a_passage, AND(r.wall_clip, r.super_bump), back=False) # wall clip and super bump off tektite to land on boss key ledge
             north_crossroads.connect((entrance, east_crossroads), AND(r.pit_buffer_boots, r.hookshot_spam_pit)) # pit buffer into block, bonk/jump across gap, and hookshot spam to get across (easier with Piece of Power)
-            #TODO: north_crossroads.connect((entrance, east_crossroads), AND(r.pit_buffer, r.hookshot_spam_pit, one_way=True) #logic prep for staircase rando
-            #TODO: north_crossroads.connect(south_crossroads, r.pit_buffer, one_way=True) #logic prep for staircase rando
+            #TODO: north_crossroads.connect((entrance, east_crossroads), AND(r.pit_buffer, r.hookshot_spam_pit, back=False) #logic prep for staircase rando
+            #TODO: north_crossroads.connect(south_crossroads, r.pit_buffer, back=False) #logic prep for staircase rando
             entrance.connect(south_crossroads, OR(r.pit_buffer_boots, AND(r.pit_buffer, r.hookshot_spam_pit))) # #TODO: REPLACE with for loop below
             #TODO: for location in (entrance, east_crossroads):
                 #TODO: location.connect(south_crossroads, AND(r.pit_buffer, OR(r.pit_buffer_boots, r.hookshot_spam_pit))) # boots buffer or hookshot spam to center of pit and buffer down
             #TODO: north_crossroads.connect(east_crossroads, AND(r.pit_buffer, r.hookshot_spam_pit)) #logic prep for staircase rando
-            south_crossroads.connect((entrance, east_crossroads), AND(OR(BOMB, BOW), r.hookshot_clip_block), one_way=True) # split zols for more entities, and hookshot clip through the blocks to west or east of crossroads
+            south_crossroads.connect((entrance, east_crossroads), AND(OR(BOMB, BOW), r.hookshot_clip_block), back=False) # split zols for more entities, and hookshot clip through the blocks to west or east of crossroads
             east_crossroads.connect(east_crossroads_chest5, AND(r.sideways_block_push, OR(r.jesus_buffer, r.jesus_jump))) # use feather to water clip into the top right corner of the bombable block, and sideways block push to gain access. Can boots bonk of top right wall, then water buffer to top of chest and boots bonk to water buffer next to chest
             west_statue_room.connect(north_statue_room, r.boots_bonk) # two boots bonks to cross the water gaps
             south_crossroads.connect(south_crossroads_chest7, AND(r.pit_buffer_boots, HOOKSHOT)) # boots bonk across the water bottom wall to the bottom left corner, then hookshot up #TODO: remove boots requirement, hookshot only method found
-            north_crossroads.connect(before_miniboss, AND(r.shaq_jump, r.hookshot_clip_block), one_way=True) # push block left of keyblock up, then shaq jump off the left wall and pause buffer to land on keyblock and push up on the block above it then hookshot to clip through
-            north_crossroads.connect(before_miniboss, AND(OR(BOMB, BOW), r.hookshot_clip_block), one_way=True) # split zol for more entities, and clip through the block left of keyblock by hookshot spam
-            #TODO: south_tile_puzzle.connect(north_tile_puzzle, r.hookshot_clip_block, one_way=True) # [logic prep for staircase rando] facing downwards at the pushblock in statue+spark room, spam hookshot while spark passes you by
-            #TODO: before_miniboss.connect(entrance, OR(r.super_poke, r.super_bump), one_way=True) # [logic prep for staircase rando] rebound off peahat to entrance
+            north_crossroads.connect(before_miniboss, AND(r.shaq_jump, r.hookshot_clip_block), back=False) # push block left of keyblock up, then shaq jump off the left wall and pause buffer to land on keyblock and push up on the block above it then hookshot to clip through
+            north_crossroads.connect(before_miniboss, AND(OR(BOMB, BOW), r.hookshot_clip_block), back=False) # split zol for more entities, and clip through the block left of keyblock by hookshot spam
+            #TODO: south_tile_puzzle.connect(north_tile_puzzle, r.hookshot_clip_block, back=False) # [logic prep for staircase rando] facing downwards at the pushblock in statue+spark room, spam hookshot while spark passes you by
+            #TODO: before_miniboss.connect(entrance, OR(r.super_poke, r.super_bump), back=False) # [logic prep for staircase rando] rebound off peahat to entrance
             #TODO: outside_b_passage_shallows.connect(before_b_passage, r.hookshot_clip_block) # logic prep for staircase rando
             #TODO: outside_b_passage_shallows.connect(before_miniboss_chest8, r.jesus_buffer) # boots bonk to upper right of chest, buffer down, then hold left out of pause menu to land on shallow water
             before_a_passage.connect(after_a_passage, AND(r.boots_bonk_2d_hell)) # Use flippers for puzzle and boots bonk to get through 2d section #TODO: move to hard, change to boots_bonk
             #TODO: before_a_passage.connect(after_a_passage, r.super_poke) # [logic prep for staircase rando] braceletless superjump and knockback off the peahat twice to get on ledge
-            #TODO: before_a_passage.connect(entrance, OR(r.super_poke, r.super_bump), one_way=True) # [logic prep for staircase rando] rebound off peahat to entrance
+            #TODO: before_a_passage.connect(entrance, OR(r.super_poke, r.super_bump), back=False) # [logic prep for staircase rando] rebound off peahat to entrance
             south_tile_puzzle.connect(after_b_passage, r.pit_buffer_boots) # boots bonk across bottom wall then boots bonk to the platform before boss door
             
         self.entrance = entrance

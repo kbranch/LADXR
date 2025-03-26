@@ -74,9 +74,9 @@ class Dungeon3:
         entrance.connect(after_pot_door, POWER_BRACELET) # Entrance <--> After Pot Door
         after_pot_door.connect(after_pot_door_chest2, AND(r.enemy_requirements["GEL"], r.enemy_requirements["MOBLIN_SWORD"], r.enemy_requirements["BOUNCING_BOMBITE"])) # After Pot Door <--> Two Bombite, Sword Stalfos, Zol Chest
         after_pot_door.connect(slime_room, None) # After Pot Door <--> Slime Room 
-        after_pot_door.connect(before_a_stairs, PEGASUS_BOOTS, one_way=True) # After Pot Door <--> Near First Staircase
+        after_pot_door.connect(before_a_stairs, PEGASUS_BOOTS, back=False) # After Pot Door <--> Near First Staircase
         #TODO: after_pot_door.connect(west_hallway, PEGASUS_BOOTS) # After Pot Door <--> Long Hallway
-        #TODO: west_hallway.connect(before_a_stairs, None, one_way=True) # Long Hallway <--> Near First Staircase
+        #TODO: west_hallway.connect(before_a_stairs, None, back=False) # Long Hallway <--> Near First Staircase
         #TODO: west_hallway.connect(before_a_stairs_chest4, AND(r.enemy_requirements["GEL"], r.enemy_requirements["STALFOS_EVASIVE"])) # Long Hallway <--> Two Stalfos, Zol Chest
         slime_room.connect(slime_room_chest3, None) # Slime Room <--> Four Zol Chest
         slime_room.connect(swordstalfos_entry, r.enemy_requirements["HIDING_ZOL"]) # Slime Room <--> Sword Stalfos Room Entrance
@@ -100,12 +100,12 @@ class Dungeon3:
         main_room.connect(main_room_drop4, r.enemy_requirements["HIDING_ZOL"]) # Main Area <--> After Stairs Key
         main_room.connect(two_pairodd_room, AND(r.enemy_requirements["ZOL"], r.enemy_requirements["GEL"])) # Main Area <--> Two Zol, Two Pairodd Room
         two_pairodd_room.connect(two_pairodd_room_drop5, AND(r.enemy_requirements["HIDING_ZOL"], r.enemy_requirements["PAIRODD"])) # Two Zol, Two Pairodd Room <--> Two Zol, Two Pairodd Key
-        two_pairodd_room.connect(two_zol_stalfos_room, None, one_way=True) # Two Zol, Two Pairodd Room --> Two Zol, Stalfos Room
-        two_zol_stalfos_room.connect(flying_bomb_room, None, one_way=True) # Two Zol, Stalfos Room --> Flying Bomb, Owl Room
+        two_pairodd_room.connect(two_zol_stalfos_room, None, back=False) # Two Zol, Two Pairodd Room --> Two Zol, Stalfos Room
+        two_zol_stalfos_room.connect(flying_bomb_room, None, back=False) # Two Zol, Stalfos Room --> Flying Bomb, Owl Room
         flying_bomb_room.connect(fenced_walkway, None) # Flying Bomb, Owl Room <--> Fenced Walkway
         main_room.connect(flying_bomb_room, None) #TODO: REMOVE - This exists just to make logic match stable, it's not really in logic
-        two_zol_stalfos_room.connect(fenced_walkway_chest7, AND(r.enemy_requirements["ZOL"], r.enemy_requirements["STALFOS_AGGRESSIVE"]), one_way=True) # Two Zol, Stalfos Room --> Two Zol, Stalfos Ledge Chest
-        #TODO: fenced_walkway.connect(fenced_walkway_chest7, OR(COUNT(SWORD, 2), BOW, BOMB, BOOMERANG), one_way=True) # TODO: kill zols and stalfos while on ledge to spawn chest - revisit after dungeon enemizer, it's in hell logic with a shield bump to walkway
+        two_zol_stalfos_room.connect(fenced_walkway_chest7, AND(r.enemy_requirements["ZOL"], r.enemy_requirements["STALFOS_AGGRESSIVE"]), back=False) # Two Zol, Stalfos Room --> Two Zol, Stalfos Ledge Chest
+        #TODO: fenced_walkway.connect(fenced_walkway_chest7, OR(COUNT(SWORD, 2), BOW, BOMB, BOOMERANG), back=False) # TODO: kill zols and stalfos while on ledge to spawn chest - revisit after dungeon enemizer, it's in hell logic with a shield bump to walkway
         main_room.connect(timer_bombite_room, None) # Main Area <--> Timer Bombite Room
         timer_bombite_room.connect(three_zol_stalfos_room, AND(r.enemy_requirements["HIDING_ZOL"], r.enemy_requirements["TIMER_BOMBITE"])) # Timer Bombite Room <--> Three Zol, Stalfos Room
         three_zol_stalfos_room.connect(three_zol_stalfos_room_chest8, None) # Three Zol, Stalfos Room <--> Three Zol, Stalfos Chest
@@ -143,17 +143,17 @@ class Dungeon3:
             north_4way.connect(north_4way_switch, r.throw_pot)
             south_4way.connect(south_4way_drop1, r.throw_pot) # use pots to kill enemies
             north_4way.connect(north_4way_drop3, r.throw_pot) # use pots to kill the enemies
-            fenced_walkway.connect(three_bombite_room_drop_6, BOOMERANG, one_way=True) # 3 bombite room from the walkway, grab item with boomerang
+            fenced_walkway.connect(three_bombite_room_drop_6, BOOMERANG, back=False) # 3 bombite room from the walkway, grab item with boomerang
 
         if options.logic == 'glitched' or options.logic == 'hell':
             #TODO: before_a_stairs.connect(west_hallway, r.hookshot_clip_block)
-            #TODO: west_hallway.connect(before_a_stairs_chest5, r.shaq_jump, r.enemy_requirements["GEL"], r.enemy_requirements["STALFOS_EVASIVE"], one_way=True) # considers dungeon enemizer for if you can't clear zol room
+            #TODO: west_hallway.connect(before_a_stairs_chest5, r.shaq_jump, r.enemy_requirements["GEL"], r.enemy_requirements["STALFOS_EVASIVE"], back=False) # considers dungeon enemizer for if you can't clear zol room
             swordstalfos_entry.connect(swordstalfos_room, r.super_jump_feather) # use superjump to get over the bottom left block
             before_a_stairs.connect(before_a_stairs_chest5, AND(OR(PEGASUS_BOOTS, r.hookshot_clip_block), r.shaq_jump)) #TODO: connect from west hallway for less logic - boots from south or hookshot clip with pushblock & zols to get behind the chest, then shaq jump using the pushblock to get on raised platforms
             before_a_stairs.connect(before_a_stairs_chest4, AND(r.enemy_requirements["GEL"], r.enemy_requirements["STALFOS_EVASIVE"], r.hookshot_clip_block)) #TODO: connect from west hallway for less logic -  hookshot clip through the northern push block next to raised blocks chest to get to the small zol, then return to kill stalfos
             big_pit_room.connect(ledge_pre_pit, r.super_jump_feather) # superjump to right side 3 gap via top wall and jump the 2 gap
             #TODO: towards_boss1.connect(miniboss_room, r.super_jump_feather)
-            towards_boss2.connect(after_miniboss_room, r.super_jump_feather, one_way=True) # superjump from keyblock path. use 2 keys to open enough blocks 
+            towards_boss2.connect(after_miniboss_room, r.super_jump_feather, back=False) # superjump from keyblock path. use 2 keys to open enough blocks 
         
         if options.logic == 'hell':
             #TODO: entrance.connect(after_vacuum, SWORD) # just hold right, more reliable with sword TODO: Tracker hell without sword?
@@ -161,10 +161,10 @@ class Dungeon3:
             #TODO: west_hallway.connect(before_a_stairs_chest4, r.boots_superhop) # when the switch hasn't been hit (no key) this trick applies
             swordstalfos_entry.connect(swordstalfos_room, r.boots_superhop) # use boots superhop to get over the bottom left block
             swordstalfos_entry.connect(swordstalfos_room, r.hookshot_clip_block) # facing downwards at the pushblock, spam hookshot while a keese passes by
-            before_a_stairs.connect(before_a_stairs_chest5, r.boots_superhop, one_way=True) # TODO: CHANGE - connect from west_hallway instead - use boots superhop off top wall or left wall to get on raised blocks
+            before_a_stairs.connect(before_a_stairs_chest5, r.boots_superhop, back=False) # TODO: CHANGE - connect from west_hallway instead - use boots superhop off top wall or left wall to get on raised blocks
             #TODO: before_a_stairs.connect(west_hallway, r.super_bump) # setup shaq jump off push block and use shield bump to jump over the pushblock
             #TODO: before_a_stairs.connect(before_a_stairs_chest5, r.super_bump) # shaq jump into super bump using zols to land on pegs
-            north_4way.connect(before_a_stairs_chest4, AND(OR(r.hit_switch, r.throw_pot), AND(r.super_jump_feather, r.enemy_requirements["GEL"], r.enemy_requirements["STALFOS_EVASIVE"])), one_way=True) #TODO: move to glitched? - use superjump near top blocks chest to get to zol without boots, keep wall clip on right wall to get a clip on left wall or use obstacles
+            north_4way.connect(before_a_stairs_chest4, AND(OR(r.hit_switch, r.throw_pot), AND(r.super_jump_feather, r.enemy_requirements["GEL"], r.enemy_requirements["STALFOS_EVASIVE"])), back=False) #TODO: move to glitched? - use superjump near top blocks chest to get to zol without boots, keep wall clip on right wall to get a clip on left wall or use obstacles
             west_4way.connect(west_4way_drop2, r.shield_bump) # knock everything into the pit including the teleporting owls
             south_4way.connect(south_4way_drop1, r.shield_bump) # knock everything into the pit including the teleporting owls
             #TODO: main_room.connect(fenced_walkway, r.super_bump) # super bump off zols to go past pushblock to the fenced walkway
@@ -172,11 +172,11 @@ class Dungeon3:
             main_room.connect(ledge_pre_pit, AND(r.super_jump_feather, r.shield_bump)) # superjump into jumping stalfos and shield bump to right ledge
             big_pit_room.connect(ledge_pre_pit, r.pit_buffer_boots) # boots bonk across the pits with pit buffering and then hookshot or shield bump to the chest
             #TODO: big_pit_room.connect(ledge_pre_pit, r.hookshot_spam_pit) # hookshot spam to get across 3 block pit and then you can hookshot to nightmare key chest [VERYHARD] - Tracker Hell?
-            #TODO: main_room.connect(towards_boss3, r.super_bump, one_way=True) # super bump off stalfos to get in between boss key block 3 and 4. it's possible to land wall clipped, leading to the next trick:
-            #TODO: towards_boss3.connect(after_miniboss_room_chest8, r.super_jump_feather, one_way=True) # feather-only super jump facing right into boots chest area
-            fenced_walkway.connect(three_bombite_room, AND(r.enemy_requirements["TIMER_BOMBITE"], OR(BOW, MAGIC_ROD, AND(OR(FEATHER, PEGASUS_BOOTS), OR(SWORD, MAGIC_POWDER)))), one_way=True) # 3 bombite room from the left side, use a bombite to blow open the wall without bombs #TODO: add L2 Sword
+            #TODO: main_room.connect(towards_boss3, r.super_bump, back=False) # super bump off stalfos to get in between boss key block 3 and 4. it's possible to land wall clipped, leading to the next trick:
+            #TODO: towards_boss3.connect(after_miniboss_room_chest8, r.super_jump_feather, back=False) # feather-only super jump facing right into boots chest area
+            fenced_walkway.connect(three_bombite_room, AND(r.enemy_requirements["TIMER_BOMBITE"], OR(BOW, MAGIC_ROD, AND(OR(FEATHER, PEGASUS_BOOTS), OR(SWORD, MAGIC_POWDER)))), back=False) # 3 bombite room from the left side, use a bombite to blow open the wall without bombs #TODO: add L2 Sword
             before_c_passage.connect(after_c_passage, OR(r.boots_bonk_2d_spikepit, AND(FEATHER, POWER_BRACELET))) # TODO: REMOVE and replace with below
-            #TODO: after_c_passage.connect(before_c_passage, AND(r.bounce_2d_spikepit, PEGASUS_BOOTS), one_way=True) # all while holding the "A" button, diagonal walk off ladder in piranha sidescroller, and bounce off spikes, then bonk the thwomp but in reverse
+            #TODO: after_c_passage.connect(before_c_passage, AND(r.bounce_2d_spikepit, PEGASUS_BOOTS), back=False) # all while holding the "A" button, diagonal walk off ladder in piranha sidescroller, and bounce off spikes, then bonk the thwomp but in reverse
             #TODO: before_c_passage.connect(after_c_passage, OR(r.boots_bonk_2d_spikepit, r.toadstool_bounce_2d_spikepit, r.bracelet_bounce_2d_spikepit)) # bracelet or toadstool to get bounce off spikes, or boots bonk during medicine invulnerability
             #TODO: consider logic for passageway in reverse, should some tricks be labeled one-way? Is there different strategies for traversing this passage in reverse? Being mindful of staircase rando
 

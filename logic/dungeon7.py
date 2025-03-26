@@ -71,23 +71,23 @@ class Dungeon7:
         before_b_stairs.connect(before_b_stairs_chest1, None) # First Floor Main Area <--> Switch Wrapped Chest
         before_b_stairs.connect(before_d_stairs, r.hit_switch) # First Floor Main Area <--> Peg Locked Staircase
         west_ledge.connect(west_ledge_chest4, None) # West Kirby Ledge <--> Kirby Ledge Chest
-        #TODO: west_ledge.connect(before_b_stairs, None, one_way=True) # West Kirby Ledge --> First Floor Main Area #[logic prep for staircase rando]
-        #TODO: west_ledge.connect(entrance, None, one_way=True) # West Kirby Ledge --> Entrance #[logic prep for staircase rando]
+        #TODO: west_ledge.connect(before_b_stairs, None, back=False) # West Kirby Ledge --> First Floor Main Area #[logic prep for staircase rando]
+        #TODO: west_ledge.connect(entrance, None, back=False) # West Kirby Ledge --> Entrance #[logic prep for staircase rando]
         east_ledge.connect(east_ledge_chest3, None) # East Beamos Ledge <--> Beamos Ledge Chest
-        #TODO: east_ledge.connect(before_a_stairs, None, one_way=True) # East Beamos Ledge --> Before Locked Staircase #[logic prep for staircase rando]
-        #TODO: east_ledge.connect(entrance, None, one_way=True) # East Beamos Ledge --> Entrance #[logic prep for staircase rando]
+        #TODO: east_ledge.connect(before_a_stairs, None, back=False) # East Beamos Ledge --> Before Locked Staircase #[logic prep for staircase rando]
+        #TODO: east_ledge.connect(entrance, None, back=False) # East Beamos Ledge --> Entrance #[logic prep for staircase rando]
 
         # connect floor 1 & 2
         before_a_stairs.connect(after_a_stairs, None) # Before Locked Staircase <--> Ball Room
         before_b_stairs.connect(after_b_stairs, None) # First Floor Main Area <--> Horseheads Staircase
         before_c_stairs.connect(after_c_stairs, None) # Two Peahat, Moldorm Room <--> North Three-of-a-Kind Puzzle
         before_d_stairs.connect(after_d_stairs, None) # Peg Locked Staircase <--> Hinox Area
-        ne_pillar.connect(before_b_stairs, None, one_way=True) # Northeast Pillar Area --> First Floor Main Area
+        ne_pillar.connect(before_b_stairs, None, back=False) # Northeast Pillar Area --> First Floor Main Area
         se_pillar.connect(before_b_stairs, None) # Southeast Pillar Area <--> First Floor Main Area #TODO: it seems north three of a kind relies on this connection being two way to match upstream logic. Need to find the real path and put it in normal logic to fix this node.
         se_pillar.connect(before_c_stairs, OR(r.hit_switch, FEATHER)) # Southeast Pillar Area <--> Two Peahat, Moldorm Room
-        tile_room.connect(west_ledge, None, one_way=True) # Floating Tile Fight --> West Kirby Ledge
-        after_d_stairs.connect(west_ledge, None, one_way=True) # Hinox Area --> West Kirby Ledge
-        pegs_after_a_stairs.connect(east_ledge, None, one_way=True) # On Pegs Around Chest --> East Beamos Ledge
+        tile_room.connect(west_ledge, None, back=False) # Floating Tile Fight --> West Kirby Ledge
+        after_d_stairs.connect(west_ledge, None, back=False) # Hinox Area --> West Kirby Ledge
+        pegs_after_a_stairs.connect(east_ledge, None, back=False) # On Pegs Around Chest --> East Beamos Ledge
 
         # floor 2
         after_a_stairs.connect(ball_access, POWER_BRACELET) # Ball Room <--> Ball Access
@@ -99,9 +99,9 @@ class Dungeon7:
         se_pillar.connect(se_pillar_fall, "D7_BALL") # Southeast Pillar Area <--> Southeast Pillar Fallen
         after_c_stairs.connect(after_c_stairs_chest2, r.enemy_requirements["THREE_OF_A_KIND"]) # North Three-of-a-Kind Puzzle <--> #TODO: When ROM patched to reset ball on S&Q in ROM, then add bracelet method
         after_c_stairs.connect(spike_corridor, FEATHER) # North Three-of-a-Kind Puzzle <--> Corridor Between North Pillars [logic prep for staircase rando]
-        spike_corridor.connect(se_pillar, FEATHER, one_way=True) # Corridor Between North Pillars --> Southeast Pillar Area
-        nw_pillar.connect(spike_corridor, FEATHER, one_way=True) # Northwest Pillar Area --> Corridor Between North Pillars
-        after_d_stairs.connect(tile_room, None, one_way=True) # Hinox Area --> Floating Tile Fight
+        spike_corridor.connect(se_pillar, FEATHER, back=False) # Corridor Between North Pillars --> Southeast Pillar Area
+        nw_pillar.connect(spike_corridor, FEATHER, back=False) # Northwest Pillar Area --> Corridor Between North Pillars
+        after_d_stairs.connect(tile_room, None, back=False) # Hinox Area --> Floating Tile Fight
         tile_room.connect(nw_pillar, None) # Floating Tile Fight <--> Northwest Pillar Area
         nw_pillar.connect(nw_pillar_fall, "D7_BALL") # Northwest Pillar Area <--> Northwest Pillar Fallen
         after_d_stairs.connect(after_d_stairs_drop2, r.miniboss_requirements["HINOX"]) # Hinox Area <--> Hinox Key
@@ -109,15 +109,15 @@ class Dungeon7:
         after_d_stairs.connect(pegs_after_a_stairs, OR(r.hit_switch)) # Hinox Area <--> On Pegs Around Chest #TODO: REPLACE with below
         #TODO: after_a_stairs.connect(pegs_after_a_stairs, BOOMERANG) # Ball Room <--> On Pegs Around Chest # NEW VERSION
         #TODO: before_b_stairs.connect(pegs_after_a_stairs, OR(BOOMERANG, BOW, BOMB, MAGIC_ROD, COUNT(SWORD,2))) # Hinox Area <--> On Pegs Around Chest # NEW VERSION
-        keylock_ledge.connect(pegs_after_a_stairs, None, one_way=True) # Key Locked Ledge --> On Pegs Around Chest
-        keylock_ledge.connect(se_pillar, None, one_way=True) # Key Locked Ledge --> Southeast Pillar Area
-        keylock_ledge.connect(after_d_stairs, None, one_way=True) # Key Locked Ledge --> Hinox Area
-        pegs_after_a_stairs.connect(after_d_stairs, None, one_way=True) # On Pegs Around Chest --> Hinox Area
+        keylock_ledge.connect(pegs_after_a_stairs, None, back=False) # Key Locked Ledge --> On Pegs Around Chest
+        keylock_ledge.connect(se_pillar, None, back=False) # Key Locked Ledge --> Southeast Pillar Area
+        keylock_ledge.connect(after_d_stairs, None, back=False) # Key Locked Ledge --> Hinox Area
+        pegs_after_a_stairs.connect(after_d_stairs, None, back=False) # On Pegs Around Chest --> Hinox Area
         pegs_after_a_stairs.connect(pegs_after_a_stairs_chest7, None) # On Pegs Around Chest --> Mirror Shield Chest
-        #TODO: pegs_after_a_stairs.connect(after_a_stairs, None, one_way=True) # On Pegs Around Chest --> Ball Room
+        #TODO: pegs_after_a_stairs.connect(after_a_stairs, None, back=False) # On Pegs Around Chest --> Ball Room
         nw_pillar.connect(bomb_corridor, BOMB) # Northwest Pillar Area <--> Bombable Wall Corridor
         bomb_corridor.connect(bombwall_owl, BOMB) # Bombable Wall Corridor <--> By Pit Owl
-        #TODO: bomb_corridor.connect(after_d_stairs, None, one_way=True) # Bombable Wall Corridor --> Hinox Area # push blocks #[logic prep for staircase rando]
+        #TODO: bomb_corridor.connect(after_d_stairs, None, back=False) # Bombable Wall Corridor --> Hinox Area # push blocks #[logic prep for staircase rando]
         bombwall_owl.connect(sw_pillar, AND(HOOKSHOT, r.enemy_requirements["THREE_OF_A_KIND"])) # By Pit Owl <--> Southwest Pillar Area
         sw_pillar.connect(sw_pillar_fall, "D7_BALL") # Southhwest Pillar Area <--> Southhwest Pillar Fallen
         sw_pillar.connect(sw_pillar_chest6, r.enemy_requirements["THREE_OF_A_KIND"]) # Southwest Pillar Area <--> Three of a Kind, Pit Chest #TODO: you can't really use any kill requirement pillar side of pushblocks
@@ -125,21 +125,21 @@ class Dungeon7:
 
         # connect floor 2 & 3
         before_e_stairs.connect(after_e_stairs, None) # Stairs by Fenced Switch <--> Stairs to Floor 3
-        after_e_stairs.connect(floor3_pre_cutscene, None, one_way=True) # Stairs to Floor 3 --> Floor 3 Before Tower Drop
-        after_e_stairs.connect(floor3_post_cutscene, FOUND("D7_PILLAR", 4), one_way=True) # Stairs to Floor 3 --> Floor 3 After Tower Drop
+        after_e_stairs.connect(floor3_pre_cutscene, None, back=False) # Stairs to Floor 3 --> Floor 3 Before Tower Drop
+        after_e_stairs.connect(floor3_post_cutscene, FOUND("D7_PILLAR", 4), back=False) # Stairs to Floor 3 --> Floor 3 After Tower Drop
 
         # floor 3 before cutscene
         floor3_pre_cutscene.connect(miniboss_room, None) # Floor 3 Before Tower Drop <--> Miniboss Room
         miniboss_room.connect(after_miniboss_room, r.miniboss_requirements[world_setup.miniboss_mapping[6]]) # Miniboss Room <--> After Miniboss Room
         after_miniboss_room.connect(after_miniboss_room_chest8, None) # After Miniboss Room <--> Nightmare Key/After Grim Creeper Chest
         #TODO: floor3_pre_cutscenes.connect(boss_backdoor, FOUND(KEY7, 3)) # Floor 3 Before Tower Drop <--> Boss Backdoor Room
-        #TODO: conveyor_room.connect(after_boss_door_chest9, POWER_BRACELET, one_way=True) # Conveyor Horseheads Room <--> Conveyor Beamos Chest
+        #TODO: conveyor_room.connect(after_boss_door_chest9, POWER_BRACELET, back=False) # Conveyor Horseheads Room <--> Conveyor Beamos Chest
 
         # floor 3 after cutscene [shouldn't put miniboss_room, boss_backdoor, or conveyor_room in post-cutscene connections else logic will leak]
         floor3_post_cutscene.connect(after_boss_door, NIGHTMARE_KEY7) # Floor 3 After Tower Drop <--> After Boss Door
-        after_boss_door.connect(after_boss_door_chest9, POWER_BRACELET, one_way=True) # After Boss Door <--> Conveyor Beamos Chest
+        after_boss_door.connect(after_boss_door_chest9, POWER_BRACELET, back=False) # After Boss Door <--> Conveyor Beamos Chest
         after_boss_door.connect(pre_boss_ledge, HOOKSHOT) # After Boss Door <--> Before Boss
-        pre_boss_ledge.connect(after_boss_door, None, one_way=True) # Before Boss --> After Boss Door
+        pre_boss_ledge.connect(after_boss_door, None, back=False) # Before Boss --> After Boss Door
         pre_boss_ledge.connect(boss_room, None) # Before Boss <--> Boss Room
         boss_room.connect(boss_room_drop3, r.boss_requirements[world_setup.boss_mapping[6]]) # Boss Room <--> Heart Container
         boss_room.connect(instrument, r.boss_requirements[world_setup.boss_mapping[6]]) # Boss Room <--> Instrument Room
@@ -165,7 +165,7 @@ class Dungeon7:
             entrance.connect(before_b_stairs, r.super_jump_sword) # superjump in the center to get on raised blocks sword added to help since it has to be a low jump
             before_b_stairs.connect(east_ledge, r.super_jump_feather) # superjump in spike switch room to right ledge
             spike_corridor.connect(nw_pillar, OR(r.shaq_jump, r.super_jump_feather)) # superjump from right wall or shaq jump off pushblock
-            west_ledge.connect(before_d_stairs, r.boots_jump, one_way = True) # without hitting the switch, drop off ledge onto peg wall, and boots jump to pegs blocking stairs
+            west_ledge.connect(before_d_stairs, r.boots_jump, back=False) # without hitting the switch, drop off ledge onto peg wall, and boots jump to pegs blocking stairs
             after_d_stairs.connect(bombwall_owl, r.sideways_block_push) # sideways block push to get to owl statue by bomb wall
             after_d_stairs.connect(sw_pillar, r.sideways_block_push) # sideways block push to get to SW pillar area
             #TODO: after_d_stairs.connect(bomb_corridor, AND(r.wall_clip, r.shaq_jump)) #[logic prep for staircase rando]
@@ -173,7 +173,7 @@ class Dungeon7:
             #TODO: sw_pillar.connect(after_d_stairs, r.zoomerang_buffer) #[logic prep for staircase rando]
             sw_pillar.connect(sw_pillar_chest6, POWER_BRACELET) #TODO: Not really an accurate statement, as you can't do the block push from the north side. evaluate moving to hard logic, or even connecting from hinox area?
             floor3_post_cutscene.connect(pre_boss_ledge, r.super_jump_feather) # superjump on top of goomba to extend superjump to boss door plateau
-            #TODO: boss_backdoor.connect(conveyor_room, AND(r.hookshot_clip_block, r.super_jump_feather), one_way=True) # hookshot clip pot in upper right repeatedly until wall clipped, then superjump onto pegs
+            #TODO: boss_backdoor.connect(conveyor_room, AND(r.hookshot_clip_block, r.super_jump_feather), back=False) # hookshot clip pot in upper right repeatedly until wall clipped, then superjump onto pegs
             
         if options.logic == 'hell':
             #TODO: entrance.connect(before_a_stairs, r.boots_superbump) # boots to run, then bow or rod to run backwards, then hold shield so blade bumps you over wall #[logic prep for staircase rando]
@@ -185,14 +185,14 @@ class Dungeon7:
             before_b_stairs.connect(east_ledge, r.boots_superhop) # boots superhop from room with spike switch
             #TODO: before_c_stairs.connect(before_b_stairs, r.super_bump) #[logic prep for staircase rando]
             #TODO: before_c_stairs.connect(west_ledge, r.super_bump) # super bump but into kirby mouth, it can spit you out with no-clip and land on ledge (need wall clip from c staircase) #[logic prep for staircase rando]
-            spike_corridor.connect(ne_pillar, r.pit_buffer_boots, one_way=True) #[logic prep for staircase rando]
-            #TODO: after_d_stairs.connect(se_pillar, r.boots_superhop, one_way = True) #[logic prep for staircase rando]
-            #TODO: after_d_stairs.connect(se_pillar, r.super_bump, one_way = True) #[logic prep for staircase rando]
+            spike_corridor.connect(ne_pillar, r.pit_buffer_boots, back=False) #[logic prep for staircase rando]
+            #TODO: after_d_stairs.connect(se_pillar, r.boots_superhop, back=False) #[logic prep for staircase rando]
+            #TODO: after_d_stairs.connect(se_pillar, r.super_bump, back=False) #[logic prep for staircase rando]
             #TODO: after_d_stairs.connect(keylock_ledge, r.boots_superbump) # running super bump off antifairy to get on ledge without key
             #TODO: bombwall_owl.connect(sw_pillar, r.pit_buffer_boots) 
             #TODO: sw_pillar.connect(sw_pillar_chest7, None) # push blocks to stun suit buddies and spawn chest #quite difficult, should we include this?
-            #TODO: boss_backdoor.connect(conveyor_area, OR(r.super_bump, r.super_poke), one_way=True) # superjump and rebound off peahat onto pegs, feather diagonally to get to right exit
-            #TODO: boss_backdoor.connect(after_boss_door, OR(r.super_bump, r.super_poke), one_way=True)
+            #TODO: boss_backdoor.connect(conveyor_area, OR(r.super_bump, r.super_poke), back=False) # superjump and rebound off peahat onto pegs, feather diagonally to get to right exit
+            #TODO: boss_backdoor.connect(after_boss_door, OR(r.super_bump, r.super_poke), back=False)
             floor3_post_cutscene.connect(pre_boss_ledge, r.boots_superhop) # boots superhop on top of goomba to extend superhop to boss door plateau #TODO: REPLACE with below
             #TODO: floor3_post_cutscene.connect(pre_boss_ledge, AND(OR(r.boots_superhop, r.super_jump_feather), r.goomba_surf)) #TODO: add goomba surft in requirements.py : it will have no requirements to work with 2d sections, but should be here for tricks toggling in the future
             
