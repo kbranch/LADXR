@@ -20,21 +20,39 @@ class Location:
             self.items.append(ii)
         return self
 
-    def connect(self, others, req, *, one_way=False):
+    def connect(self, others, req=False, *, enter=False, exit=False, one_way=False):
+        assert one_way == False or enter == exit == False, "one_way is for backwards compatibility and should not be used with enter/exit"
+
+        # Backwards compatibility for now
+        if one_way:
+            enter = req
+            req = False
+
+        assert req == False or (enter == exit == False), "Specify either req or enter/exit, not both"
+
         if not isinstance(others, Iterable):
             others = [others]
+        
+        # Assume there's no requirement if nothing is specified
+        if req == enter == exit == False:
+            req = None
+        
+        if req != False:
+            enter = req
+            exit = req
 
         for other in others:
-            self.singleConnect(other, req, one_way=one_way)
+            self.singleConnect(other, enter)
+            other.singleConnect(self, exit)
 
         return self
     
-    def singleConnect(self, other, req, *, one_way=False):
+    def singleConnect(self, other, req):
         assert isinstance(other, Location), type(other)
 
         if isinstance(req, bool):
             if req:
-                self.singleConnect(other, None, one_way=one_way)
+                self.singleConnect(other, None)
             return
 
         if other in self.__connected_to:
@@ -59,8 +77,6 @@ class Location:
                 self.gated_connections.append((other, req))
             else:
                 self.simple_connections.append((other, req))
-        if not one_way:
-            other.singleConnect(self, req, one_way=True)
     
 
     def __repr__(self):

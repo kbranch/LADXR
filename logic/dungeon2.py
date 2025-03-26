@@ -62,20 +62,20 @@ class Dungeon2:
         pitplatform_room.connect(mimic_beetle_room, FEATHER) # Platforms & Pits Area <--> Mimic & Beetle Area
         mimic_beetle_room.connect(before_a_passage, FOUND(KEY2, 3)) # Mimic & Beetle Area <--> Pushblock Room
         before_a_passage.connect(after_a_passage, FEATHER) # Pushblock Room <--> Dark Spark Room
-        after_a_passage.connect(miniboss_room, None) # Dark Spark Room <--> Miniboss Room
+        after_a_passage.connect(miniboss_room) # Dark Spark Room <--> Miniboss Room
         miniboss_room.connect(after_miniboss, r.miniboss_requirements[world_setup.miniboss_mapping[1]]) # Miniboss Room <--> After Miniboss
         after_miniboss.connect(before_b_passage, POWER_BRACELET) # After Miniboss <--> Blocked Staircase
         before_b_passage.connect(after_b_passage, FEATHER) # Blocked Staircase <--> Enemy Order Room
         after_b_passage.connect(after_b_passage_chest10, AND(r.enemy_requirements["KEESE"], r.enemy_requirements["MOBLIN"], OR(r.enemy_requirements["POLS_VOICE"], POWER_BRACELET))) # Enemy Order Room <--> Enemy Order Room Chest
         after_miniboss.connect(vacuum_room, FEATHER) # After Miniboss <--> Vacuum Mouth Area
-        vacuum_room.connect(vacuum_room_chest6, None) # Vacuum Mouth Area <--> Vacuum Mouth Chest
-        vacuum_room.connect(vacuum_room_chest7, None) # Vacuum Mouth Area <--> Outside Boo Buddies Room Chest
+        vacuum_room.connect(vacuum_room_chest6) # Vacuum Mouth Area <--> Vacuum Mouth Chest
+        vacuum_room.connect(vacuum_room_chest7) # Vacuum Mouth Area <--> Outside Boo Buddies Room Chest
         vacuum_room.connect(boo_room, FOUND(KEY2, 5)) # Vacuum Mouth Area <--> Boo Buddies Room
         boo_room.connect(boo_room_chest8, OR(r.fire, r.enemy_requirements["BOO_BUDDY"])) # Boo Buddies Room <--> Boo Buddies Room Chest
         vacuum_room.connect(northwest_switch_room, POWER_BRACELET) # Vacuum Mouth Area <--> Left of North Trapped Switch
         northwest_switch_room.connect(northeast_switch_room, r.hit_switch) # Left of North Trapped Switch <--> Right of North Trapped Switch
-        northeast_switch_room.connect(northeast_switch_room_chest9, None) # Right of North Trapped Switch <--> Second Switch Locked Chest
-        northeast_switch_room.connect(after_b_passage, r.hit_switch, one_way=True) # Right of North Trapped Switch <--> Enemy Order Room
+        northeast_switch_room.connect(northeast_switch_room_chest9) # Right of North Trapped Switch <--> Second Switch Locked Chest
+        northeast_switch_room.connect(after_b_passage, enter=r.hit_switch) # Right of North Trapped Switch <--> Enemy Order Room
         after_b_passage.connect(pot_pol_room_doorway, FOUND(KEY2, 5)) # Enemy Order Room <--> Pots & Pols Room Doorway
         pot_pol_room_doorway.connect(pot_pol_room, POWER_BRACELET) # Pots & Pols Room Doorway <--> Pots & Pols Room
         pot_pol_room.connect(before_c_passage, AND(OR(POWER_BRACELET, r.enemy_requirements["POLS_VOICE"]), r.enemy_requirements["ZOL"])) # Pots & Pols Room --> Boss Passageway Spawn #TODO: enemy randomizer would make this pot kill requirement inaccurate. Also, technically you can kill zols with pots too, given 20 available, consider for normal logic
