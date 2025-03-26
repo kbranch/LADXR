@@ -26,11 +26,12 @@ class Location:
         if not isinstance(others, Iterable):
             others = [others]
         
-        if req == back == "UNSET":
-            # Assume there's no requirement if nothing is specified
+        # Assume there's no requirement if nothing is specified
+        if req == "UNSET" and back in ("UNSET", False):
             req = None
-        elif back == "UNSET":
-            # It's a two-way
+
+        # It's a two-way
+        if back == "UNSET":
             back = req
         
         if req == "UNSET":
