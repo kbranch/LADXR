@@ -2,7 +2,6 @@ from .requirements import *
 from .location import Location
 from locations.all import *
 import worldSetup
-# from worldSetup import ENTRANCE_INFO
 
 
 class World:
@@ -11,7 +10,7 @@ class World:
 
         mabe_village = Location("Mabe Village")
         Location().add(HeartPiece(0x2A4)).connect(mabe_village, r.bush, id="0")  # well
-        Location().add(FishingMinigame()).connect(mabe_village, AND(r.bush, COUNT("RUPEES", 20)), id="1")  # fishing game, heart piece is directly done by the minigame.
+        Location().add(FishingMinigame()).connect(mabe_village, AND(r.bush, FOUND("RUPEES", 50)), id="1")  # fishing game, heart piece is directly done by the minigame.
         Location().add(Seashell(0x0A3)).connect(mabe_village, r.bush, id="2")  # bushes below the shop
         Location().add(Seashell(0x0D2)).connect(mabe_village, PEGASUS_BOOTS, id="3")  # smash into tree next to lv1
         Location().add(Song(0x092)).connect(mabe_village, OCARINA, id="4")  # Marins song
@@ -45,8 +44,8 @@ class World:
 
         shop = Location("Shop")
         if options.shopsanity == '':
-            Location().add(ShopItem(0)).connect(shop, COUNT("RUPEES", 200), id="d")
-            Location().add(ShopItem(1)).connect(shop, COUNT("RUPEES", 980), id="e")
+            Location().add(ShopItem(0)).connect(shop, FOUND("RUPEES", 250), id="d")
+            Location().add(ShopItem(1)).connect(shop, FOUND("RUPEES", 1000+250), id="e")
         else:
             Location().add(ShopItem(0)).connect(shop, FOUND("RUPEES", 100), id="f")
             Location().add(ShopItem(1)).connect(shop, FOUND("RUPEES", 200), id="g")
@@ -173,7 +172,7 @@ class World:
         self._addEntrance("prairie_left_cave2", ukuku_prairie, prairie_left_cave2, BOMB)
         self._addEntranceRequirementExit("prairie_left_cave2", None, id="12") # if exiting, you do not need bombs
 
-        mamu = Location("Mamu").connect(Location().add(Song(0x2FB)), AND(OCARINA, COUNT("RUPEES", 300)), id="13")
+        mamu = Location("Mamu").connect(Location().add(Song(0x2FB)), AND(OCARINA, FOUND("RUPEES", 1300)), id="13")
         self._addEntrance("mamu", ukuku_prairie, mamu, AND(OR(AND(FEATHER, PEGASUS_BOOTS), ROOSTER), OR(HOOKSHOT, ROOSTER), POWER_BRACELET))
 
         dungeon3_entrance = Location("Outside D3").connect(ukuku_prairie, OR(FEATHER, ROOSTER, FLIPPERS), id="14")
@@ -402,7 +401,7 @@ class World:
 
         # Raft game.
         raft_house = Location("Raft House")
-        Location().add(KeyLocation("RAFT")).connect(raft_house, COUNT("RUPEES", 100), id="3z")
+        Location().add(KeyLocation("RAFT")).connect(raft_house, FOUND("RUPEES", 500), id="3z")
         raft_return_upper = Location("Raft Return North")
         raft_return_lower = Location("Raft Return South").connect(raft_return_upper, None, id="40", one_way=True)
         outside_raft_house = Location("Outside Raft House").connect(below_right_taltal, HOOKSHOT, id="41").connect(below_right_taltal, FLIPPERS, id="42", one_way=True)
@@ -732,8 +731,8 @@ class DungeonDiveOverworld:
         self.entrances = {}
 
         start_house = Location().add(StartItem())
-        Location().add(ShopItem(0)).connect(start_house, COUNT("RUPEES", 200), id="96")
-        Location().add(ShopItem(1)).connect(start_house, COUNT("RUPEES", 980), id="97")
+        Location().add(ShopItem(0)).connect(start_house, FOUND("RUPEES", 250), id="96")
+        Location().add(ShopItem(1)).connect(start_house, FOUND("RUPEES", 1000 + 250), id="97")
         Location().add(Song(0x0B1)).connect(start_house, OCARINA, id="98")  # Marins song
         start_house.add(DroppedKey(0xB2))  # Sword on the beach
         egg = Location().connect(start_house, AND(r.bush, BOMB), id="99")
@@ -847,8 +846,8 @@ class ALttP:
         trendy_shop.connect(Location().add(TradeSequenceItem(0x2A0, TRADING_ITEM_YOSHI_DOLL)), FOUND("RUPEES", 50), id="9t")
         self._addEntrance("trendy_shop", start_area, trendy_shop, r.bush)
         shop = Location()
-        Location().add(ShopItem(0)).connect(shop, COUNT("RUPEES", 200), id="9u")
-        Location().add(ShopItem(1)).connect(shop, COUNT("RUPEES", 980), id="9v")
+        Location().add(ShopItem(0)).connect(shop, FOUND("RUPEES", 250), id="9u")
+        Location().add(ShopItem(1)).connect(shop, FOUND("RUPEES", 1250), id="9v")
         self._addEntrance("shop", start_area, shop, None)
         writes_house = Location()
         writes_house.connect(Location().add(TradeSequenceItem(0x2a8, TRADING_ITEM_BROOM)), TRADING_ITEM_LETTER, id="9w")
@@ -952,7 +951,7 @@ class ALttP:
         self._addEntrance("prairie_left_cave2", mountain_left, prairie_left_cave2, None)
         self._addEntrance("castle_jump_cave", mountain_left, Location().add(Chest(0x1FD)), None)
 
-        mamu = Location().connect(Location().add(Song(0x2FB)), AND(OCARINA, COUNT("RUPEES", 300)), id="av")
+        mamu = Location().connect(Location().add(Song(0x2FB)), AND(OCARINA, FOUND("RUPEES", 1300)), id="av")
         self._addEntrance("mamu", mountain_left, mamu, None)
 
         mountain_right = Location().connect(mountain_left, OR(HOOKSHOT, AND(FEATHER, PEGASUS_BOOTS)), id="aw")

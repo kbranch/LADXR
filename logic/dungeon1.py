@@ -11,12 +11,12 @@ class Dungeon1:
         Location(dungeon=1).add(DungeonChest(0x10D)).connect(entrance, OR(r.enemy_requirements["MINI_MOLDORM"], SHIELD), id="ba") # moldorm spawn chest
         stalfos_keese_room = Location(dungeon=1).add(DungeonChest(0x114)).connect(entrance, AND(OR(r.enemy_requirements["STALFOS_EVASIVE"], SHIELD), r.enemy_requirements["KEESE"]), id="bb") # 2 stalfos 2 keese room
         Location(dungeon=1).add(DungeonChest(0x10C)).connect(entrance, BOMB, id="bc") # hidden seashell room
-        dungeon1_upper_left = Location("D1 Upper Left", dungeon=1).connect(entrance, AND(KEY1, FOUND(KEY1, 3)), id="bd")
+        dungeon1_upper_left = Location("D1 Upper Left", dungeon=1).connect(entrance, FOUND(KEY1, 3), id="bd")
         if options.owlstatues == "both" or options.owlstatues == "dungeon":
             Location(dungeon=1).add(OwlStatue(0x103), OwlStatue(0x104)).connect(dungeon1_upper_left, STONE_BEAK1, id="be")
         feather_chest = Location(dungeon=1).add(DungeonChest(0x11D)).connect(dungeon1_upper_left, OR(r.enemy_requirements["SPIKED_BEETLE"], SHIELD), id="bf")  # feather location, behind spike enemies. can shield bump into pit (only shield works)
-        boss_key = Location(dungeon=1).add(DungeonChest(0x108)).connect(entrance, AND(FEATHER, KEY1, FOUND(KEY1, 3)), id="bg") # boss key
-        dungeon1_right_side = Location("D1 Right Side", dungeon=1).connect(entrance, AND(KEY1, FOUND(KEY1, 3)), id="bh")
+        boss_key = Location(dungeon=1).add(DungeonChest(0x108)).connect(entrance, AND(FEATHER, FOUND(KEY1, 3)), id="bg") # boss key
+        dungeon1_right_side = Location("D1 Right Side", dungeon=1).connect(entrance, FOUND(KEY1, 3), id="bh")
         if options.owlstatues == "both" or options.owlstatues == "dungeon":
             Location(dungeon=1).add(OwlStatue(0x10A)).connect(dungeon1_right_side, STONE_BEAK1, id="bi")
         dungeon1_3_of_a_kind = Location(dungeon=1).add(DungeonChest(0x10A)).connect(dungeon1_right_side, r.enemy_requirements["THREE_OF_A_KIND"], id="bj") # three of a kind, shield stops the suit from changing
