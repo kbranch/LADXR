@@ -1137,6 +1137,11 @@ var options =
     "label": "Meme"
    },
    {
+    "key": "Moblin.bin",
+    "short": "Moblin.bin>",
+    "label": "Moblin"
+   },
+   {
     "key": "NESLink.bin",
     "short": "NESLink.bin>",
     "label": "NESLink"
