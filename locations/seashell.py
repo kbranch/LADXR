@@ -10,6 +10,8 @@ class Seashell(DroppedKey):
     def configure(self, options):
         if not options.seashells:
             self.OPTIONS = [SEASHELL]
+        else:
+            super().configure(options)
 
 
 class SeashellMansionBonus(ItemInfo):
@@ -44,6 +46,8 @@ class SeashellMansionBonus(ItemInfo):
     def configure(self, options):
         if not options.seashells:
             self.OPTIONS = [SEASHELL]
+        else:
+            super().configure(options)
 
     @property
     def nameId(self):

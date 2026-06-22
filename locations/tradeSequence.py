@@ -25,6 +25,8 @@ class TradeSequenceItem(ItemInfo):
     def configure(self, options):
         if not options.tradequest:
             self.OPTIONS = [self.__default_item]
+        else:
+            super().configure(options)
 
     def patch(self, rom, option):
         rom.banks[0x3E][self.room + 0x3B16] = CHEST_ITEMS[option]

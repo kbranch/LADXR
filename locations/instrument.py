@@ -7,3 +7,5 @@ class Instrument(DroppedKey):
     def configure(self, options):
         if not options.instruments and not options.goal == "seashells":
             self.OPTIONS = ["INSTRUMENT%d" % (self._location.dungeon)]
+        else:
+            super().configure(options)

@@ -18,6 +18,7 @@ class OwlStatue(ItemInfo):
     ]
 
     def configure(self, options):
+        super().configure(options)
         if options.owlstatues == "both":
             return
         if options.owlstatues == "dungeon" and self.room >= 0x100:

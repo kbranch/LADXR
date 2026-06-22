@@ -17,9 +17,6 @@ class MadBatter(ItemInfo):
         TAIL_CAVE_OPENED, KEY_CAVERN_OPENED, ANGLER_TUNNEL_OPENED, FACE_SHRINE_OPENED, CASTLE_GATE_OPENED, EAGLE_TOWER_OPENED
     ]
 
-    def configure(self, options):
-        return
-
     def patch(self, rom, option):
         rom.banks[0x18][0x0F90 + (self.room & 0x0F)] = CHEST_ITEMS[option]
 

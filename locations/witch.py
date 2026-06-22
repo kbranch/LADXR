@@ -23,6 +23,8 @@ class Witch(ItemInfo):
     def configure(self, options):
         if not options.witch:
             self.OPTIONS = [MAGIC_POWDER]
+        else:
+            super().configure(options)
 
     def patch(self, rom, option):
         if len(self.OPTIONS) == 1:
