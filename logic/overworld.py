@@ -818,7 +818,8 @@ class ALttP:
             seashell_mansion.add(DroppedKey(0x2E9))
         self._addEntrance("seashell_mansion", start_area, seashell_mansion, None)
 
-        start_area.add(Seashell(0x4A))
+        graveyard_bush = Location().add(Seashell(0x4A))
+        graveyard_bush.connect(start_area, r.bush)
         graveyard_cave_left = Location()
         graveyard_cave_right = Location().connect(graveyard_cave_left, OR(FEATHER, ROOSTER))
         graveyard_heartpiece = Location().add(HeartPiece(0x2DF)).connect(graveyard_cave_right, OR(AND(BOMB, OR(HOOKSHOT, PEGASUS_BOOTS), FEATHER), ROOSTER))  # grave cave
