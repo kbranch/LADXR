@@ -4,6 +4,14 @@ import argparse
 import patches.aesthetics
 
 
+default_pal = [
+    (150, 150, 255, 0),
+    (  0,   0,   0, 255),
+    ( 59, 180, 112, 255),
+    (251, 221, 197, 255),
+]
+
+
 def convert_endscreen(input_filename, output_filename):
     img = PIL.Image.open(input_filename).convert("RGBA")
     img = img.convert("P", dither=PIL.Image.FLOYDSTEINBERG, palette=PIL.Image.ADAPTIVE, colors=16)
@@ -137,15 +145,39 @@ def convert_endscreen(input_filename, output_filename):
     img.save("test.png")
     open(output_filename, "wb").write(all_tile_data + all_attr_data + all_pal_data)
 
+def create_icon(input_filename, output_filename, rom_filename):
+    import romTables
+    rom = romTables.ROMWithTables(open("input.gbc", "rb"))
+    patches.aesthetics.gfxMod(rom, input_filename)
+    sprite = rom.banks[0x2C][0x1800:0x1840]
+    if rom.banks[0x0C][0x37C0:0x3800] == bytes(0x40):
+        sprite = rom.banks[0x0C][0x1800:0x1840]
+
+    icon = PIL.Image.new("RGBA", (16, 16))
+    for y in range(32):
+        a = sprite[y * 2]
+        b = sprite[y * 2 + 1]
+        for x in range(8):
+            v = 0
+            if a & (0x80 >> x):
+                v |= 1
+            if b & (0x80 >> x):
+                v |= 2
+            icon.putpixel((x + (y // 16) * 8, y % 16), default_pal[v])
+    icon = icon.resize((32, 32), PIL.Image.Resampling.NEAREST)
+    icon.save(output_filename)
 
 def main(mainargs=None):
     parser = argparse.ArgumentParser(description='Convert a png to a bin file')
     parser.add_argument('input_file', type=str)
     parser.add_argument('output_file', type=str)
     parser.add_argument('--endscreen', dest="endscreen", action="store_true", help="Convert image to cats.bin")
+    parser.add_argument('--icon', dest="icon", required=False, help="Create an gfx icon, requires an input rom specified", metavar="rom")
     args = parser.parse_args(mainargs)
     if args.endscreen:
         convert_endscreen(args.input_file, args.output_file)
+    elif args.icon:
+        create_icon(args.input_file, args.output_file, args.icon)
     else:
         data = patches.aesthetics.imageTo2bpp(args.input_file, colormap=[0x800080, 0x000000, 0x808080, 0xFFFFFF])
         open(args.output_file, "wb").write(data)
