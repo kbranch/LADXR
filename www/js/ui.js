@@ -130,6 +130,16 @@ function updateGfxModImage() {
     if (gfxmod && gfxmod != 'custom') {
         var url = 'LADXR/gfx/' + gfxmod + '.png';
         ID('gfxmodimg').src = url;
+        for(var s of options) {
+            if (s['key'] == 'gfxmod') {
+                ID('gfxmodimg').parentElement.ariaLabel = s['description'];
+                for(var o of s["options"]) {
+                    if (o["key"] == gfxmod && o["meta"]) {
+                        ID('gfxmodimg').parentElement.ariaLabel += "\n\n" + o["label"] + " by " + o["meta"];
+                    }
+                }
+            }
+        }
     } else {
         ID('gfxmodimg').src = '';
     }

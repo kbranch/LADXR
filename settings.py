@@ -64,6 +64,9 @@ class Setting:
         }
         if self.options:
             result["options"] = [{"key": option_key, "short": option_short, "label": option_label} for option_key, option_short, option_label in self.options]
+            for option in result["options"]:
+                if "|" in option["label"]:
+                    option["label"], _, option["meta"] = option["label"].partition("|")
         if self.placeholder:
             result["placeholder"] = self.placeholder
         if self.visible_if:
@@ -80,12 +83,13 @@ class Settings:
                 continue
             if filename.endswith(".bin"):
                 label = filename[:-4]
+                meta_data = None
                 try:
-                    label_data = open(os.path.join(os.path.dirname(__file__), "gfx", filename + ".txt"), "rt").read()
-                    if not label_data.startswith("{"):
-                        label_data = open(os.path.join(os.path.dirname(__file__), "gfx", label_data), "rt").read()
-                    label_data = json.loads(label_data)
-                    # label = f"{label} by {label_data['name']}"
+                    meta_data = open(os.path.join(os.path.dirname(__file__), "gfx", filename + ".txt"), "rt").read()
+                    if not meta_data.startswith("{"):
+                        meta_data = open(os.path.join(os.path.dirname(__file__), "gfx", meta_data), "rt").read()
+                    meta_data = json.loads(meta_data)
+                    label = f"{label}|{meta_data['name']}"
                 except Exception as e:
                     pass
                 gfx_options.append((filename, filename + ">", label))
