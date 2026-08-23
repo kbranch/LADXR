@@ -1,6 +1,7 @@
 import string
 from typing import List, Tuple, Optional, Union
 import os
+import json
 
 
 class Setting:
@@ -78,9 +79,19 @@ class Settings:
             if filename in {"template.png", "template_extended.png", "template_extended2.png"}:
                 continue
             if filename.endswith(".bin"):
-                gfx_options.append((filename, filename + ">", filename[:-4]))
+                label = filename[:-4]
+                try:
+                    label_data = open(os.path.join(os.path.dirname(__file__), "gfx", filename + ".txt"), "rt").read()
+                    if not label_data.startswith("{"):
+                        label_data = open(os.path.join(os.path.dirname(__file__), "gfx", label_data), "rt").read()
+                    label_data = json.loads(label_data)
+                    label = f"{label} by {label_data['name']}"
+                except Exception as e:
+                    print(e)
+                gfx_options.append((filename, filename + ">", label))
             if filename.endswith(".png") and not filename.endswith(".bin.png"):
-                gfx_options.append((filename, filename + ">", filename[:-4]))
+                gfx_options.append((filename, filename + ">", label))
+            
 
         self.__all = [
             Setting('seed', 'Main', '<', 'Seed', placeholder='Leave empty for random seed', default="",
