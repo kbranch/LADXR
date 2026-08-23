@@ -65,6 +65,8 @@ class MapExport:
                         room += 0x100
                     if n == 11:
                         room += 0x100
+                    if room == 0x2FE:  # Ignore the banana sale room, which is loaded on map 16, but also present in layout 10
+                        continue
                     self.room_map_info(room).x = x
                     self.room_map_info(room).y = y
                     map_id = n
