@@ -85,7 +85,7 @@ class Settings:
                     if not label_data.startswith("{"):
                         label_data = open(os.path.join(os.path.dirname(__file__), "gfx", label_data), "rt").read()
                     label_data = json.loads(label_data)
-                    label = f"{label} by {label_data['name']}"
+                    # label = f"{label} by {label_data['name']}"
                 except Exception as e:
                     pass
                 gfx_options.append((filename, filename + ">", label))
