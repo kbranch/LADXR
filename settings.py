@@ -87,7 +87,7 @@ class Settings:
                     label_data = json.loads(label_data)
                     label = f"{label} by {label_data['name']}"
                 except Exception as e:
-                    print(e)
+                    pass
                 gfx_options.append((filename, filename + ">", label))
             if filename.endswith(".png") and not filename.endswith(".bin.png"):
                 gfx_options.append((filename, filename + ">", label))
