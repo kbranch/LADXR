@@ -13,7 +13,8 @@ class World:
         Location().add(FishingMinigame()).connect(mabe_village, AND(r.bush, FOUND("RUPEES", 50)))  # fishing game, heart piece is directly done by the minigame.
         Location().add(Seashell(0x0A3)).connect(mabe_village, r.bush)  # bushes below the shop
         Location().add(Seashell(0x0D2)).connect(mabe_village, PEGASUS_BOOTS)  # smash into tree next to lv1
-        Location().add(Song(0x092)).connect(mabe_village, OCARINA)  # Marins song
+        marin_song = Location().add(Song(0x092))
+        mabe_village.connect(marin_song, OCARINA, back=False)
         Location().add(KeyHole(0x0D3, TAIL_CAVE_OPENED)).connect(mabe_village, TAIL_KEY)  # Marins song
         rooster_cave = Location("Rooster Cave")
         Location().add(DroppedKey(0x1E4)).connect(rooster_cave, AND(OCARINA, SONG3))
@@ -286,6 +287,7 @@ class World:
 
         animal_village = Location("Animal Village")
         animal_village.connect(Location().add(TradeSequenceItem(0x0CD, TRADING_ITEM_FISHING_HOOK)), TRADING_ITEM_BROOM)
+        animal_village.connect(marin_song, OCARINA, back=False)
         cookhouse = Location("Bear Chef's House")
         cookhouse.connect(Location().add(TradeSequenceItem(0x2D7, TRADING_ITEM_PINEAPPLE)), TRADING_ITEM_HONEYCOMB)
         goathouse = Location("Goat's House")
