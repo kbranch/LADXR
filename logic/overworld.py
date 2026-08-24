@@ -632,7 +632,7 @@ class World:
             prairie_cave_secret_exit.connect(prairie_cave, AND(BOMB, OR(r.boots_bonk_pit, r.hookshot_spam_pit))) # hookshot spam or boots bonk across pits can go from left to right by pit buffering on top of the bottom wall then boots bonk across
             richard_cave_chest.connect(richard_cave, r.damage_boost) # use the zol on the other side of the pit to damage boost across (requires damage from pit + zol)
             richard_cave_chest.connect(richard_cave, r.boots_bonk) # bonk over the pit instead of damage boosting
-            ukuku_prairie.connect(dungeon3_entrance, AND(r.pit_buffer_boots, r.jesus_buffer), back=False)
+            ukuku_prairie.connect(dungeon3_entrance, AND(r.pit_buffer_boots, r.jesus_buffer), back=False) # boots bonk from the right into a jesus buffer down to the bottom wall, then bonk all the way across
             castle_secret_entrance_right.connect(castle_secret_entrance_left, OR(r.boots_bonk_2d_spikepit, r.bracelet_bounce_2d_spikepit, r.toadstool_bounce_2d_spikepit)) # use bracelet or toadstool to damage boost off of spikes and get through passageway. Also need to hold A button when bouncing off spikes or goombas
             left_bay_area.connect(ghost_hut_outside, r.pit_buffer_boots) # multiple pit buffers to bonk across the bottom wall
             left_bay_area.connect(ukuku_prairie, r.hookshot_clip_block, back=False) # clip through the donuts blocking the path next to prairie plateau cave by hookshotting up and killing the two moblins that way which clips you further up two times. This is enough to move right
