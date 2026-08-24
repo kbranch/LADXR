@@ -100,7 +100,7 @@ class Dungeon7:
         # floor 2 north
         after_a_stairs.connect(ball_access, POWER_BRACELET, back=False)
         after_a_stairs.connect(ne_pillar, POWER_BRACELET, back=None) # intended method is to pull lever
-        after_a_stairs.connect(pegs_before_ball, "SWITCH7B_RANGE", back=False)
+        after_a_stairs.connect(pegs_before_ball, OR("SWITCH7A", "SWITCH7B_RANGE"), back=False) # SWITCH7A here might eventually cause trouble with stairs shuffle?
         after_b_stairs.connect(ne_pillar, "SWITCH7A", back=OR("SWITCH7B_RANGE", "SWITCH7C"))
         ne_pillar.connect(ne_pillar_chest5, POWER_BRACELET, back=False)
         ne_pillar.connect(ne_pillar_fall, "D7_BALL", back=False)
@@ -120,7 +120,7 @@ class Dungeon7:
         after_d_stairs.connect(tile_room, back=False)
         after_d_stairs.connect(after_d_stairs_drop2, r.miniboss_requirements["HINOX"], back=False)
         after_d_stairs.connect(sw_pillar_toak_clear, r.enemy_requirements["THREE_OF_A_KIND"], back=False) #NOTE: add bracelet method if rom patched
-        after_d_stairs.connect((se_pillar_switch_midrange, se_pillar_switch_range), OR(BOOMERANG, BOW, BOMB, MAGIC_ROD), back=False)
+        after_d_stairs.connect(se_pillar_switch_midrange, OR(BOOMERANG, BOW, BOMB, MAGIC_ROD), back=False)
         after_d_stairs.connect(pegs_before_ball, "SWITCH7C_RANGE", back=None)
         after_d_stairs.connect(keylock_ledge, FOUND(KEY7, 3))
         keylock_ledge.connect((se_pillar, pegs_before_ball, after_d_stairs), back=False)
