@@ -285,9 +285,6 @@ class ItemPool:
             self.remove(MESSAGE, 1)
             self.add(RUPEES_500, 3)
 
-        if settings.logic in ("hard", "glitched", "hell"):
-            STATIC_DUNGEON_ITEMS[7]["SWITCH7C_RANGE"] = 1
-
         if settings.overworld not in {"dungeonchain", "nodungeons", "random"}:
             for dungeon,items in STATIC_DUNGEON_ITEMS.items():
                 for item, qty in items.items():
@@ -419,6 +416,8 @@ class ItemPool:
 
         if settings.logic == 'casual':
             self.remove("SWITCH7B_RANGE", self.get("SWITCH7B_RANGE"))
+        if settings.logic in ("hard", "glitched", "hell"):
+            self.add("SWITCH7C_RANGE", 1)
 
     def __randomizeRupees(self, options, rnd):
         # Remove rupees from the item pool and replace them with other items to create more variety
