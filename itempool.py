@@ -285,6 +285,9 @@ class ItemPool:
             self.remove(MESSAGE, 1)
             self.add(RUPEES_500, 3)
 
+        if settings.logic in ("hard", "glitched", "hell"):
+            STATIC_DUNGEON_ITEMS[7]["SWITCH7C_RANGE"] = 1
+
         if settings.overworld not in {"dungeonchain", "nodungeons", "random"}:
             for dungeon,items in STATIC_DUNGEON_ITEMS.items():
                 for item, qty in items.items():
