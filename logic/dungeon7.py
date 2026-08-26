@@ -121,6 +121,7 @@ class Dungeon7:
         after_d_stairs.connect(after_d_stairs_drop2, r.miniboss_requirements["HINOX"], back=False)
         after_d_stairs.connect(sw_pillar_toak_clear, r.enemy_requirements["THREE_OF_A_KIND"], back=False) #NOTE: add bracelet method if rom patched
         after_d_stairs.connect(se_pillar_switch_midrange, OR(BOOMERANG, BOW, BOMB, MAGIC_ROD), back=False)
+        after_d_stairs.connect(se_pillar_switch_range, OR(BOOMERANG, BOW, BOMB), back=False) # hit switch and get on pegs by east exit
         after_d_stairs.connect(pegs_before_ball, "SWITCH7C_RANGE", back=None)
         after_d_stairs.connect(keylock_ledge, FOUND(KEY7, 3))
         keylock_ledge.connect((se_pillar, pegs_before_ball, after_d_stairs), back=False)
@@ -172,7 +173,7 @@ class Dungeon7:
             after_c_stairs.connect(after_c_stairs_chest2, BOMB, back=False)
             after_c_stairs.connect(spike_corridor, r.damage_boost) # forced damage so this cannot be in normal logic
             after_d_stairs.connect(se_pillar_switch_midrange, AND(FEATHER, SWORD), back=False) # jump and swing sword from below rail NOTE: add bracelet method if rom patched
-            after_d_stairs.connect(se_pillar_switch_range, OR(BOOMERANG, BOW, BOMB, MAGIC_ROD), back=False) # hit switch and get on pegs by east exit
+            after_d_stairs.connect(se_pillar_switch_range, MAGIC_ROD, back=False) # hit switch and get on pegs by east exit
             after_d_stairs.connect(sw_pillar_toak_clear, "D7_BALL", back=False) # throw the ball to solve three-of-a-kind and spawn the chest
             for location in (after_d_stairs, bombwall_pit, sw_pillar):
                 location.connect(sw_pillar_toak_clear, BOMB, back=False) # push a block if needed and solve the three-of-a-kind puzzle with bombs
